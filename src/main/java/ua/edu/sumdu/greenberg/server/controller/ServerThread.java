@@ -5,10 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+import org.apache.log4j.Logger;
 import ua.edu.sumdu.greenberg.server.model.User;
 
 public class ServerThread implements Runnable {
-//	private static final Logger log = Logger.getLogger(ServerThread.class);
+	private static final Logger log = Logger.getLogger(ServerThread.class);
 	User user;
 	Socket socket;
 
@@ -29,12 +30,11 @@ public class ServerThread implements Runnable {
 			String message = null;
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			while ((message = bufferedReader.readLine()) != null) {
-				System.out.println("Message - " + message);
+				log.info("Message - " + message);
 			}
 			socket.close();
 		} catch (IOException e) {
-			System.out.println(e);
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 }

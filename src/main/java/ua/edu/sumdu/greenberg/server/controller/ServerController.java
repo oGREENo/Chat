@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.apache.log4j.Logger;
 import ua.edu.sumdu.greenberg.server.model.ServerModel;
 import ua.edu.sumdu.greenberg.server.view.ServerView;
 
 public class ServerController {
+	private static final Logger log = Logger.getLogger(ServerController.class);
 	public static final int PORT = 12345;
 	private ServerView serverView;
 	private ServerModel serverModel;
@@ -19,7 +21,7 @@ public class ServerController {
 		try {
 			runServer();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 
