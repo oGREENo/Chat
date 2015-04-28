@@ -10,7 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ClientMessageThread extends Thread {
+public class ClientMessageThread implements Runnable {
 	private static final Logger log = Logger.getLogger(ClientMessageThread.class);
 	private Socket socket;
 	

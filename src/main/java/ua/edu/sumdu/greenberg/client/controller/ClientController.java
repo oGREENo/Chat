@@ -80,7 +80,9 @@ public class ClientController {
 		} catch (IOException e) {
 			log.error(e);
 		}
-		new ClientMessageThread(socket).start();
+		Runnable runnable = new ClientMessageThread(socket);
+		Thread thread = new Thread(runnable);
+		thread.start();
 //		log.info("Connect to URL - " + clientUser.getUrl() + " and PORT - " + clientUser.getPort());
 	}
 	
