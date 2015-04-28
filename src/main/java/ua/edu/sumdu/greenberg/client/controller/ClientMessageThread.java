@@ -1,5 +1,7 @@
 package ua.edu.sumdu.greenberg.client.controller;
 
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ClientMessageThread extends Thread {
+	private static final Logger log = Logger.getLogger(ClientMessageThread.class);
 	private Socket socket;
 	
 	/**
@@ -37,7 +40,7 @@ public class ClientMessageThread extends Thread {
 //				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 }

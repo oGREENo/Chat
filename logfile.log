@@ -1,3 +1,10 @@
 19:00:00,324  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
 19:00:22,552  INFO main ServerView:consoleMessage:15 - Connection user.
 19:00:22,557  INFO main ServerView:consoleMessage:15 - Connection user.
+19:28:54,441  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
+19:29:03,481  INFO AWT-EventQueue-0 ClientController:actionPerformed:40 - Click Login
+19:29:03,487  INFO AWT-EventQueue-0 ClientController:pingServer:95 - Ping Server.
+19:29:03,493  INFO AWT-EventQueue-0 ClientController:actionPerformed:52 - Server is running
+19:29:03,493  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - ghdfg
+19:29:03,493  INFO main ServerView:consoleMessage:15 - Connection user.
+19:29:03,497  INFO main ServerView:consoleMessage:15 - Connection user.
