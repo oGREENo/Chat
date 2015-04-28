@@ -29,10 +29,10 @@ public class ServerController {
      */
     public void runServer() throws IOException {
         ServerSocket serverSocket = new ServerSocket(PORT);
-        serverView.serverUP();
+        serverView.consoleMessage("Server UP $ ready connection.");
         while (true) {
             Socket socket = serverSocket.accept();
-            serverView.connectUser();
+            serverView.consoleMessage("Connection user.");
 			Runnable runnable = new ServerThread(socket);
 			Thread thread = new Thread(runnable);
 			thread.start();
