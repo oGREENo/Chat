@@ -33,7 +33,9 @@ public class ServerController {
         while (true) {
             Socket socket = serverSocket.accept();
             serverView.connectUser();
-            new ServerThread(socket).start();
-        }
+			Runnable runnable = new ServerThread(socket);
+			Thread thread = new Thread(runnable);
+			thread.start();
+		}
     }
 }

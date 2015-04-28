@@ -7,7 +7,7 @@ import java.net.Socket;
 
 import ua.edu.sumdu.greenberg.server.model.User;
 
-public class ServerThread extends Thread {
+public class ServerThread implements Runnable {
 //	private static final Logger log = Logger.getLogger(ServerThread.class);
 	User user;
 	Socket socket;
