@@ -13,6 +13,7 @@ import ua.edu.sumdu.greenberg.client.model.ClientModel;
 import ua.edu.sumdu.greenberg.client.view.ClientView;
 import ua.edu.sumdu.greenberg.client.view.ClientViewChat;
 import ua.edu.sumdu.greenberg.client.view.ClientViewLogin;
+import ua.edu.sumdu.greenberg.client.model.User;
 
 public class ClientController {
 	private static final Logger log = Logger.getLogger(ClientController.class);
@@ -20,6 +21,7 @@ public class ClientController {
 	private ClientViewLogin clientViewLogin;
 	private ClientViewChat clientViewChat;
 	private ClientModel clientModel;
+	private User user;
 	private String name;
 	private String url;
 	private int port;
@@ -50,7 +52,7 @@ public class ClientController {
 				port = clientViewLogin.getPort();
 				if (pingServer(addr, port, 25)) {
 					log.info("Server is running");
-//					createClientUser(name, url, port);
+					user = new User(name, url, port);
 					createConnection();
 //					try {
 //						writeInSocket("#CONNECT_USER" + "[" + clientName.getName() + "]");
@@ -83,7 +85,7 @@ public class ClientController {
 		Runnable runnable = new ClientMessageThread(socket);
 		Thread thread = new Thread(runnable);
 		thread.start();
-//		log.info("Connect to URL - " + clientUser.getUrl() + " and PORT - " + clientUser.getPort());
+		log.info("Connect to URL - " + clientViewLogin.getUrl() + " and PORT - " + clientViewLogin.getPort());
 	}
 	
 	/**

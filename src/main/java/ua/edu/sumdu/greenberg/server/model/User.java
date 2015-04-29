@@ -8,9 +8,11 @@ public class User {
 
 	/**
 	 * This is constructor the new user.
+	 * @param s
 	 * @param name - name user.
+	 * @param port
 	 */
-	public User(String name) {
+	public User(String s, String name, int port) {
 		setName(name);
 	}
 

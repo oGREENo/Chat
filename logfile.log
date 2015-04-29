@@ -50,3 +50,39 @@
 09:05:01,909  INFO AWT-EventQueue-0 ClientController:actionPerformed:52 - Server is running
 09:05:01,910  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - Petrov
 09:05:01,912  INFO main ServerView:consoleMessage:15 - Connection user.
+09:30:08,914  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
+09:30:21,079  INFO AWT-EventQueue-0 ClientController:actionPerformed:42 - Click Login
+09:30:21,085  INFO AWT-EventQueue-0 ClientController:pingServer:99 - Ping Server.
+09:30:21,090  INFO AWT-EventQueue-0 ClientController:actionPerformed:54 - Server is running
+09:30:21,090  INFO main ServerView:consoleMessage:15 - Connection user.
+09:30:21,092  INFO AWT-EventQueue-0 ClientController:createConnection:79 - ClientUser Name - Ivaniv
+09:30:21,095  INFO main ServerView:consoleMessage:15 - Connection user.
+09:31:54,575  INFO AWT-EventQueue-0 ClientController:actionPerformed:42 - Click Login
+09:31:54,581  INFO AWT-EventQueue-0 ClientController:pingServer:99 - Ping Server.
+09:31:54,586  INFO main ServerView:consoleMessage:15 - Connection user.
+09:31:54,586  INFO AWT-EventQueue-0 ClientController:actionPerformed:54 - Server is running
+09:31:54,588  INFO AWT-EventQueue-0 ClientController:createConnection:79 - ClientUser Name - Petrov
+09:31:54,589  INFO main ServerView:consoleMessage:15 - Connection user.
+09:31:54,591  INFO AWT-EventQueue-0 ClientController:createConnection:88 - Connect to URL - 127.0.0.1 and PORT - 12345
+09:32:25,387  INFO AWT-EventQueue-0 ClientController:actionPerformed:42 - Click Login
+09:32:25,393  INFO AWT-EventQueue-0 ClientController:pingServer:99 - Ping Server.
+09:32:25,398  INFO main ServerView:consoleMessage:15 - Connection user.
+09:32:25,398  INFO AWT-EventQueue-0 ClientController:actionPerformed:54 - Server is running
+09:32:25,400  INFO AWT-EventQueue-0 ClientController:createConnection:79 - ClientUser Name - Sidorov
+09:32:25,402  INFO main ServerView:consoleMessage:15 - Connection user.
+09:32:25,403  INFO AWT-EventQueue-0 ClientController:createConnection:88 - Connect to URL - 127.0.0.1 and PORT - 12345
+09:34:48,215  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
+09:34:59,402  INFO AWT-EventQueue-0 ClientController:actionPerformed:42 - Click Login
+09:34:59,409  INFO AWT-EventQueue-0 ClientController:pingServer:99 - Ping Server.
+09:34:59,418  INFO AWT-EventQueue-0 ClientController:actionPerformed:54 - Server is running
+09:34:59,417  INFO main ServerView:consoleMessage:15 - Connection user.
+09:34:59,419  INFO AWT-EventQueue-0 ClientController:createConnection:79 - ClientUser Name - Ivanov
+09:34:59,422  INFO main ServerView:consoleMessage:15 - Connection user.
+09:34:59,424  INFO AWT-EventQueue-0 ClientController:createConnection:88 - Connect to URL - 127.0.0.1 and PORT - 12345
+09:35:26,429  INFO AWT-EventQueue-0 ClientController:actionPerformed:42 - Click Login
+09:35:26,435  INFO AWT-EventQueue-0 ClientController:pingServer:99 - Ping Server.
+09:35:26,440  INFO main ServerView:consoleMessage:15 - Connection user.
+09:35:26,441  INFO AWT-EventQueue-0 ClientController:actionPerformed:54 - Server is running
+09:35:26,442  INFO AWT-EventQueue-0 ClientController:createConnection:79 - ClientUser Name - Petrov
+09:35:26,444  INFO main ServerView:consoleMessage:15 - Connection user.
+09:35:26,445  INFO AWT-EventQueue-0 ClientController:createConnection:88 - Connect to URL - 127.0.0.1 and PORT - 12345
