@@ -38,7 +38,7 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			log.info("Click Login");
-			if (clientViewLogin.validData()) {
+			if (clientModel.validData(clientViewLogin.getName(), clientViewLogin.getUrl(), clientViewLogin.getPort())) {
 				name = clientViewLogin.getName();
 				url = clientViewLogin.getUrl();
 				InetAddress addr = null;
@@ -48,7 +48,7 @@ public class ClientController {
 					log.error(e);
 				}
 				port = clientViewLogin.getPort();
-				if (pingServer(addr, port, 15)) {
+				if (pingServer(addr, port, 25)) {
 					log.info("Server is running");
 //					createClientUser(name, url, port);
 					createConnection();

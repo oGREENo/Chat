@@ -21,3 +21,32 @@
 19:39:47,840  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - qwert
 19:39:47,849  INFO main ServerView:consoleMessage:15 - Connection user.
 19:39:47,850  INFO main ServerView:consoleMessage:15 - Connection user.
+08:57:03,509  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
+08:57:26,885  INFO AWT-EventQueue-0 ClientController:actionPerformed:40 - Click Login
+08:57:26,918  INFO AWT-EventQueue-0 ClientController:pingServer:97 - Ping Server.
+08:57:26,971 ERROR AWT-EventQueue-0 ClientController:pingServer:103 - IOException.java.net.SocketTimeoutException
+08:57:30,106  INFO AWT-EventQueue-0 ClientController:actionPerformed:40 - Click Login
+08:57:30,107  INFO AWT-EventQueue-0 ClientController:pingServer:97 - Ping Server.
+08:57:30,109  INFO AWT-EventQueue-0 ClientController:actionPerformed:52 - Server is running
+08:57:30,109  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - bla bla bla
+08:57:30,109  INFO main ServerView:consoleMessage:15 - Connection user.
+08:57:30,147  INFO main ServerView:consoleMessage:15 - Connection user.
+08:58:11,429  INFO AWT-EventQueue-0 ClientController:actionPerformed:40 - Click Login
+08:58:11,436  INFO AWT-EventQueue-0 ClientController:pingServer:97 - Ping Server.
+08:58:11,441  INFO main ServerView:consoleMessage:15 - Connection user.
+08:58:11,441  INFO AWT-EventQueue-0 ClientController:actionPerformed:52 - Server is running
+08:58:11,442  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - ivanov
+08:58:11,443  INFO main ServerView:consoleMessage:15 - Connection user.
+08:59:24,826  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
+09:04:52,205  INFO AWT-EventQueue-0 ClientController:actionPerformed:40 - Click Login
+09:04:52,212  INFO AWT-EventQueue-0 ClientController:pingServer:97 - Ping Server.
+09:04:52,218  INFO AWT-EventQueue-0 ClientController:actionPerformed:52 - Server is running
+09:04:52,218  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - Ivanov
+09:04:52,218  INFO main ServerView:consoleMessage:15 - Connection user.
+09:04:52,222  INFO main ServerView:consoleMessage:15 - Connection user.
+09:05:01,897  INFO AWT-EventQueue-0 ClientController:actionPerformed:40 - Click Login
+09:05:01,904  INFO AWT-EventQueue-0 ClientController:pingServer:97 - Ping Server.
+09:05:01,909  INFO main ServerView:consoleMessage:15 - Connection user.
+09:05:01,909  INFO AWT-EventQueue-0 ClientController:actionPerformed:52 - Server is running
+09:05:01,910  INFO AWT-EventQueue-0 ClientController:createConnection:77 - ClientUser Name - Petrov
+09:05:01,912  INFO main ServerView:consoleMessage:15 - Connection user.

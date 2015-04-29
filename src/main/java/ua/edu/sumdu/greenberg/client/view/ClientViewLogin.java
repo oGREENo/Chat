@@ -26,17 +26,6 @@ public class ClientViewLogin extends JFrame {
 	private String name;
 	private String url;
 	private int port;
-	private Pattern pattern;
-	private Pattern pattern2;
-	private Matcher matcher;
-	private Matcher matcher2;
-	private static final String IPADDRESS_PATTERN =   
-			"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +  
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +  
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +  
-			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
-	private static final String LOCALHOST_PATTERN =   
-			"localhost";
 	
 	public ClientViewLogin() {
 		super("Connect to Server");
@@ -145,49 +134,12 @@ public class ClientViewLogin extends JFrame {
 	 * @return port.
 	 */
 	public int getPort() {
-		int port = Integer.valueOf(textPort.getText());
+		port = Integer.valueOf(textPort.getText());
 		return port;
 	}
 	
 	public void clickLogin(ActionListener listener) {
 		jLoginButton.addActionListener(listener);
 	}
-	
-	/**
-	 * This method checks the entered data.
-	 * @return boolean.
-	 */
-	public boolean validData() {
-		if (textLogin.getText().length() > 0
-			&& textURL.getText().length() > 0
-			&& textPort.getText().toString().length() > 0 ) {
-			if (validIP() && validPort()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
-	 * This method checks the entered IP.
-	 * @return boolean.
-	 */
-	public boolean validIP() { 
-		pattern = Pattern.compile(IPADDRESS_PATTERN);
-		pattern2 = Pattern.compile(LOCALHOST_PATTERN);
-		matcher = pattern.matcher(textURL.getText()); 
-		matcher2 = pattern2.matcher(textURL.getText());
-		return (matcher.matches() || matcher2.matches());          
-	}
-
-	/**
-	 * This method checks the entered port.
-	 * @return boolean.
-	 */
-	public boolean validPort() {
-		int port = Integer.valueOf(textPort.getText());
-		return ((port >= 1) && (port <= 65355) && (port != 80))? true : false;
-	}
-	
 
 }
