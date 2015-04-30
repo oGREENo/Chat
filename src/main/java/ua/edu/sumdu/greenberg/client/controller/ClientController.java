@@ -2,6 +2,7 @@ package ua.edu.sumdu.greenberg.client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
@@ -10,11 +11,20 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import ua.edu.sumdu.greenberg.client.model.ClientModel;
 import ua.edu.sumdu.greenberg.client.view.ClientView;
 import ua.edu.sumdu.greenberg.client.view.ClientViewChat;
 import ua.edu.sumdu.greenberg.client.view.ClientViewLogin;
 import ua.edu.sumdu.greenberg.client.model.User;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 public class ClientController {
 	private static final Logger log = Logger.getLogger(ClientController.class);
@@ -27,6 +37,7 @@ public class ClientController {
 	private String url;
 	private int port;
 	private Socket socket;
+	private DocumentBuilder builder;
 	
 	public ClientController(ClientView clientView, ClientViewLogin clientViewLogin, 
 			ClientViewChat clientViewChat, ClientModel clientModel) {
@@ -56,7 +67,7 @@ public class ClientController {
 					user = new User(name, url, port);
 					createConnection();
 					try {
-						writeInSocket("Hello server");
+						writeInSocket(name, null, "ADD_USER", "Hello server");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -117,13 +128,55 @@ public class ClientController {
 
 	/**
 	 * This method writes in socket a message.
-	 * @param message
+	 * @param nick - name
+	 * @param to_nick - name
+	 * @param action - command
+	 * @param text - message
 	 * @throws IOException
 	 */
-	public void writeInSocket(String message) throws IOException {
-		if (!message.isEmpty()) {
-			PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-			printWriter.println(name + ": " + message);
+	public void writeInSocket(String nick, String to_nick, String action, String text) throws IOException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
+		Document doc=builder.newDocument();
+		Element RootElement=doc.createElement("message");
+
+		if (nick != null) {
+			Element NameElementNick = doc.createElement("nick");
+			NameElementNick.appendChild(doc.createTextNode(nick));
+			RootElement.appendChild(NameElementNick);
+		}
+
+		if (to_nick != null) {
+			Element NameElementToNick = doc.createElement("to_nick");
+			NameElementToNick.appendChild(doc.createTextNode(to_nick));
+			RootElement.appendChild(NameElementToNick);
+		}
+
+		if (action != null) {
+			Element NameElementAction = doc.createElement("action");
+			NameElementAction.appendChild(doc.createTextNode(action));
+			RootElement.appendChild(NameElementAction);
+		}
+
+		if (text != null) {
+			Element NameElementText = doc.createElement("text");
+			NameElementText.appendChild(doc.createTextNode(text));
+			RootElement.appendChild(NameElementText);
+		}
+		doc.appendChild(RootElement);
+
+
+		try {
+			Transformer t= TransformerFactory.newInstance().newTransformer();
+			Source source = new DOMSource(doc);
+			Result output = new StreamResult(socket.getOutputStream());
+			t.transform(source, output);
+		} catch (TransformerException e) {
+			e.printStackTrace();
 		}
 	}
 }
