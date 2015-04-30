@@ -69,7 +69,7 @@ public class ClientController {
 					try {
 						writeInSocket(name, null, "ADD_USER", "Hello server");
 					} catch (IOException e) {
-						e.printStackTrace();
+						log.error(e);
 					}
 					clientViewLogin.setVisible(false);
 //					clientViewChat.setVisible(true);
@@ -139,7 +139,7 @@ public class ClientController {
 		try {
 			builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 		Document doc=builder.newDocument();
 		Element RootElement=doc.createElement("message");
@@ -176,7 +176,7 @@ public class ClientController {
 			Result output = new StreamResult(socket.getOutputStream());
 			t.transform(source, output);
 		} catch (TransformerException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 }
