@@ -86,3 +86,23 @@
 09:35:26,442  INFO AWT-EventQueue-0 ClientController:createConnection:79 - ClientUser Name - Petrov
 09:35:26,444  INFO main ServerView:consoleMessage:15 - Connection user.
 09:35:26,445  INFO AWT-EventQueue-0 ClientController:createConnection:88 - Connect to URL - 127.0.0.1 and PORT - 12345
+09:35:51,167  INFO main ServerView:consoleMessage:15 - Server UP $ ready connection.
+09:36:05,920  INFO AWT-EventQueue-0 ClientController:actionPerformed:43 - Click Login
+09:36:05,927  INFO AWT-EventQueue-0 ClientController:pingServer:100 - Ping Server.
+09:36:05,959 ERROR AWT-EventQueue-0 ClientController:pingServer:106 - IOException.java.net.SocketTimeoutException
+09:36:08,492  INFO AWT-EventQueue-0 ClientController:actionPerformed:43 - Click Login
+09:36:08,493  INFO AWT-EventQueue-0 ClientController:pingServer:100 - Ping Server.
+09:36:08,496  INFO AWT-EventQueue-0 ClientController:actionPerformed:55 - Server is running
+09:36:08,497  INFO AWT-EventQueue-0 ClientController:createConnection:80 - ClientUser Name - Ivanov
+09:36:08,495  INFO main ServerView:consoleMessage:15 - Connection user.
+09:36:08,502  INFO AWT-EventQueue-0 ClientController:createConnection:89 - Connect to URL - 127.0.0.1 and PORT - 12345
+09:36:08,530  INFO main ServerView:consoleMessage:15 - Connection user.
+09:36:08,538  INFO Thread-1 ServerThread:run:33 - Message - Ivanov: Hello server
+09:36:35,533  INFO AWT-EventQueue-0 ClientController:actionPerformed:43 - Click Login
+09:36:35,540  INFO AWT-EventQueue-0 ClientController:pingServer:100 - Ping Server.
+09:36:35,545  INFO main ServerView:consoleMessage:15 - Connection user.
+09:36:35,545  INFO AWT-EventQueue-0 ClientController:actionPerformed:55 - Server is running
+09:36:35,547  INFO AWT-EventQueue-0 ClientController:createConnection:80 - ClientUser Name - Petrov
+09:36:35,549  INFO main ServerView:consoleMessage:15 - Connection user.
+09:36:35,552  INFO AWT-EventQueue-0 ClientController:createConnection:89 - Connect to URL - 127.0.0.1 and PORT - 12345
+09:36:35,554  INFO Thread-3 ServerThread:run:33 - Message - Petrov: Hello server

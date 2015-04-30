@@ -3,6 +3,7 @@ package ua.edu.sumdu.greenberg.client.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -54,11 +55,11 @@ public class ClientController {
 					log.info("Server is running");
 					user = new User(name, url, port);
 					createConnection();
-//					try {
-//						writeInSocket("#CONNECT_USER" + "[" + clientName.getName() + "]");
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
+					try {
+						writeInSocket("Hello server");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 					clientViewLogin.setVisible(false);
 //					clientViewChat.setVisible(true);
 					
@@ -112,5 +113,17 @@ public class ClientController {
 			}
 		}
 		return exception == null ? true : false;
+	}
+
+	/**
+	 * This method writes in socket a message.
+	 * @param message
+	 * @throws IOException
+	 */
+	public void writeInSocket(String message) throws IOException {
+		if (!message.isEmpty()) {
+			PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
+			printWriter.println(name + ": " + message);
+		}
 	}
 }
