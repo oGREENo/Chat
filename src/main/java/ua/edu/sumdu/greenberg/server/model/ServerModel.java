@@ -32,9 +32,12 @@ public class ServerModel {
         String t0_nick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
         if(action != null) {
-            if (action == "ADD_USER") {
+            if (action.equals("ADD_USER")) {
                 user = new User(nick);
                 addUser(user, serverThread);
+            } else if (action.equals("REMOVE_USER")) {
+                user = new User(nick);
+                removeUser(user);
             }
         } else {
             //sending a normal message.
