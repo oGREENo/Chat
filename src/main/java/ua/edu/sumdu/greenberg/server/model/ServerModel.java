@@ -1,5 +1,6 @@
 package ua.edu.sumdu.greenberg.server.model;
 
+import org.w3c.dom.Document;
 import ua.edu.sumdu.greenberg.server.controller.ServerThread;
 
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Map;
 
 public class ServerModel {
     private static Map<User, ServerThread> userMap = new HashMap<User, ServerThread>();
-
+    User user;
     public void addUser(User user, ServerThread serverThread) {
         userMap.put(user,serverThread);
     }
@@ -24,5 +25,19 @@ public class ServerModel {
         }
         return users;
     }
-	
+
+    public void readMesage(Document doc, ServerThread serverThread) {
+        String action = doc.getElementsByTagName("action").item(0).getTextContent();
+        String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
+        String t0_nick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
+        String text = doc.getElementsByTagName("text").item(0).getTextContent();
+        if(action != null) {
+            if (action == "ADD_USER") {
+                user = new User(nick);
+                addUser(user, serverThread);
+            }
+        } else {
+            //sending a normal message.
+        }
+    }
 }

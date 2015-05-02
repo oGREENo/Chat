@@ -42,7 +42,6 @@ public class ClientController {
 		this.clientView = clientView;
 		this.clientModel = clientModel;
 		this.clientViewLogin = clientViewLogin;
-		
 		this.clientViewLogin.clickLogin(new ClickLogin());
 	}
 	
@@ -141,33 +140,43 @@ public class ClientController {
 		}
 		Document doc=builder.newDocument();
 		Element RootElement=doc.createElement("message");
-
 		if (nick != null) {
 			Element NameElementNick = doc.createElement("nick");
 			NameElementNick.appendChild(doc.createTextNode(nick));
 			RootElement.appendChild(NameElementNick);
+		} else {
+			Element NameElementNick = doc.createElement("nick");
+			NameElementNick.appendChild(doc.createTextNode(""));
+			RootElement.appendChild(NameElementNick);
 		}
-
 		if (to_nick != null) {
 			Element NameElementToNick = doc.createElement("to_nick");
 			NameElementToNick.appendChild(doc.createTextNode(to_nick));
 			RootElement.appendChild(NameElementToNick);
+		} else {
+			Element NameElementToNick = doc.createElement("to_nick");
+			NameElementToNick.appendChild(doc.createTextNode(""));
+			RootElement.appendChild(NameElementToNick);
 		}
-
 		if (action != null) {
 			Element NameElementAction = doc.createElement("action");
 			NameElementAction.appendChild(doc.createTextNode(action));
 			RootElement.appendChild(NameElementAction);
+		} else {
+			Element NameElementAction = doc.createElement("action");
+			NameElementAction.appendChild(doc.createTextNode(""));
+			RootElement.appendChild(NameElementAction);
 		}
-
 		if (text != null) {
 			Element NameElementText = doc.createElement("text");
 			NameElementText.appendChild(doc.createTextNode(text));
 			RootElement.appendChild(NameElementText);
+		} else {
+			Element NameElementText = doc.createElement("text");
+			NameElementText.appendChild(doc.createTextNode(""));
+			RootElement.appendChild(NameElementText);
 		}
 		doc.appendChild(RootElement);
-
-
 		try {
 			Transformer t= TransformerFactory.newInstance().newTransformer();
 			Source source = new DOMSource(doc);

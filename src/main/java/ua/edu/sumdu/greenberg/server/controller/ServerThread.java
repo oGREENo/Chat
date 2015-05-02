@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import ua.edu.sumdu.greenberg.server.model.ServerModel;
 import ua.edu.sumdu.greenberg.server.model.User;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -18,15 +19,16 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class ServerThread implements Runnable {
 	private static final Logger log = Logger.getLogger(ServerThread.class);
-	User user;
-	Socket socket;
+	private Socket socket;
+	private ServerModel serverModel;
 
 	/**
 	 * This is the constructor a class.
 	 * @param socket - socket.
 	 */
-	ServerThread(Socket socket) {
+	ServerThread(Socket socket, ServerModel serverModel) {
 		this.socket = socket;
+		this.serverModel = serverModel;
 	}
 
 	/**
@@ -37,15 +39,12 @@ public class ServerThread implements Runnable {
 		try {
 			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			InputSource is = new InputSource();
-
-
 			String message = null;
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			while ((message = bufferedReader.readLine()) != null) {
-				log.info("Message - " + message);
 				is.setCharacterStream(new StringReader(message));
 				Document doc = db.parse(is);
-				System.out.println(doc.getElementsByTagName("text").item(0).getTextContent());
+				serverModel.readMesage(doc, this);
 				message = null;
 			}
 			socket.close();
