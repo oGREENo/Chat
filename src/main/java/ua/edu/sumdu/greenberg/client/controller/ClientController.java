@@ -2,9 +2,7 @@ package ua.edu.sumdu.greenberg.client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -175,6 +173,7 @@ public class ClientController {
 			Source source = new DOMSource(doc);
 			Result output = new StreamResult(socket.getOutputStream());
 			t.transform(source, output);
+			socket.getOutputStream().write('\n');
 		} catch (TransformerException e) {
 			log.error(e);
 		}
