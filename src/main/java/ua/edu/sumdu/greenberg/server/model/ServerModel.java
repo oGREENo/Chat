@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ServerModel {
     private static Map<User, ServerThread> userMap = new HashMap<User, ServerThread>();
-    User user;
+    private User user;
     public void addUser(User user, ServerThread serverThread) {
         userMap.put(user,serverThread);
     }

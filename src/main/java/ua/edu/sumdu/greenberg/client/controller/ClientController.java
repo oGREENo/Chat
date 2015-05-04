@@ -35,7 +35,6 @@ public class ClientController {
 	private String url;
 	private int port;
 	private Socket socket;
-	private DocumentBuilder builder;
 	
 	public ClientController(ClientView clientView, ClientViewLogin clientViewLogin, 
 			ClientViewChat clientViewChat, ClientModel clientModel) {
@@ -132,51 +131,7 @@ public class ClientController {
 	 * @throws IOException
 	 */
 	public void writeInSocket(String nick, String to_nick, String action, String text) throws IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		try {
-			builder = factory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			log.error(e);
-		}
-		Document doc=builder.newDocument();
-		Element RootElement=doc.createElement("message");
-		if (nick != null) {
-			Element NameElementNick = doc.createElement("nick");
-			NameElementNick.appendChild(doc.createTextNode(nick));
-			RootElement.appendChild(NameElementNick);
-		} else {
-			Element NameElementNick = doc.createElement("nick");
-			NameElementNick.appendChild(doc.createTextNode(""));
-			RootElement.appendChild(NameElementNick);
-		}
-		if (to_nick != null) {
-			Element NameElementToNick = doc.createElement("to_nick");
-			NameElementToNick.appendChild(doc.createTextNode(to_nick));
-			RootElement.appendChild(NameElementToNick);
-		} else {
-			Element NameElementToNick = doc.createElement("to_nick");
-			NameElementToNick.appendChild(doc.createTextNode(""));
-			RootElement.appendChild(NameElementToNick);
-		}
-		if (action != null) {
-			Element NameElementAction = doc.createElement("action");
-			NameElementAction.appendChild(doc.createTextNode(action));
-			RootElement.appendChild(NameElementAction);
-		} else {
-			Element NameElementAction = doc.createElement("action");
-			NameElementAction.appendChild(doc.createTextNode(""));
-			RootElement.appendChild(NameElementAction);
-		}
-		if (text != null) {
-			Element NameElementText = doc.createElement("text");
-			NameElementText.appendChild(doc.createTextNode(text));
-			RootElement.appendChild(NameElementText);
-		} else {
-			Element NameElementText = doc.createElement("text");
-			NameElementText.appendChild(doc.createTextNode(""));
-			RootElement.appendChild(NameElementText);
-		}
-		doc.appendChild(RootElement);
+		Document doc = clientModel.createXML(nick, to_nick, action, text);
 		try {
 			Transformer t= TransformerFactory.newInstance().newTransformer();
 			Source source = new DOMSource(doc);
