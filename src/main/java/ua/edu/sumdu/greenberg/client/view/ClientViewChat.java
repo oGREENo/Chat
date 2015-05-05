@@ -79,6 +79,7 @@ public class ClientViewChat extends JFrame {
      * @return name.
      */
     public String getMessage() {
+        mess = null;
         mess = message.getText();
         return mess;
     }
@@ -89,5 +90,10 @@ public class ClientViewChat extends JFrame {
 
     public void clickPrivate(ActionListener listener) {
         privateButton.addActionListener(listener);
+    }
+
+    public void clearSelectedUser() {
+        listMessage.clearSelection();
+        message.setText("");
     }
 }

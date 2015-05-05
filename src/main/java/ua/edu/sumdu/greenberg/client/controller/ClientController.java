@@ -20,6 +20,9 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+/**
+ * This class is the controller.
+ */
 public class ClientController {
 	private static final Logger log = Logger.getLogger(ClientController.class);
 	private ClientView clientView;
@@ -31,7 +34,14 @@ public class ClientController {
 	private String url;
 	private int port;
 	private Socket socket;
-	
+
+	/**
+	 * This is the class constructor.
+	 * @param clientView - clientView.
+	 * @param clientViewLogin - clientViewLogin.
+	 * @param clientViewChat - clientViewChat.
+	 * @param clientModel - clientModel.
+	 */
 	public ClientController(ClientView clientView, ClientViewLogin clientViewLogin, 
 			ClientViewChat clientViewChat, ClientModel clientModel) {
 		this.clientView = clientView;
@@ -39,8 +49,13 @@ public class ClientController {
 		this.clientViewLogin = clientViewLogin;
 		this.clientViewChat = clientViewChat;
 		this.clientViewLogin.clickLogin(new ClickLogin());
+		this.clientViewChat.clickSend(new ClickSend());
+		this.clientViewChat.clickPrivate(new ClickPrivate());
 	}
-	
+
+	/**
+	 * This class is responsible for the connection to the server.
+	 */
 	class ClickLogin implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
@@ -67,6 +82,42 @@ public class ClientController {
 					clientViewLogin.setVisible(false);
 					clientViewChat.setVisible(true);
 					// GET USER LIST
+				}
+			}
+		}
+	}
+
+	/**
+	 * This class is responsible for sending messages.
+	 */
+	class ClickSend implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (clientViewChat.getMessage() != null || !clientViewChat.getMessage().isEmpty()) {
+				try {
+					writeInSocket(name, null, null, clientViewChat.getMessage());
+					clientViewChat.clearSelectedUser();
+				} catch (IOException e) {
+					log.error(e);
+				}
+			}
+		}
+	}
+
+	/**
+	 * This class is responsible for sending private messages.
+	 */
+	class ClickPrivate implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (clientViewChat.getMessage() != null || !clientViewChat.getMessage().isEmpty()) {
+				if (clientViewChat.getSelectedUser() != null || !clientViewChat.getSelectedUser().isEmpty()) {
+					try {
+						writeInSocket(name, clientViewChat.getSelectedUser(), null, clientViewChat.getMessage());
+						clientViewChat.clearSelectedUser();
+					} catch (IOException e) {
+						log.error(e);
+					}
 				}
 			}
 		}
