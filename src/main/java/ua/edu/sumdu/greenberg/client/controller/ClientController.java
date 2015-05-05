@@ -41,6 +41,7 @@ public class ClientController {
 		this.clientView = clientView;
 		this.clientModel = clientModel;
 		this.clientViewLogin = clientViewLogin;
+		this.clientViewChat = clientViewChat;
 		this.clientViewLogin.clickLogin(new ClickLogin());
 	}
 	
@@ -68,7 +69,7 @@ public class ClientController {
 						log.error(e);
 					}
 					clientViewLogin.setVisible(false);
-//					clientViewChat.setVisible(true);
+					clientViewChat.setVisible(true);
 					
 //					try {
 //						writeInSocket("#GET_USER_LIST" + "[" + clientName.getName() + "]");
