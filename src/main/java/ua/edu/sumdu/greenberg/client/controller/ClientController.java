@@ -10,16 +10,12 @@ import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import ua.edu.sumdu.greenberg.client.model.ClientModel;
 import ua.edu.sumdu.greenberg.client.view.ClientView;
 import ua.edu.sumdu.greenberg.client.view.ClientViewChat;
 import ua.edu.sumdu.greenberg.client.view.ClientViewLogin;
 import ua.edu.sumdu.greenberg.client.model.User;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -70,17 +66,12 @@ public class ClientController {
 					}
 					clientViewLogin.setVisible(false);
 					clientViewChat.setVisible(true);
-					
-//					try {
-//						writeInSocket("#GET_USER_LIST" + "[" + clientName.getName() + "]");
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
+					// GET USER LIST
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * This method create a connection.
 	 */
