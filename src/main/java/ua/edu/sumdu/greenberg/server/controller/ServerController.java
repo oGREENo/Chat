@@ -18,23 +18,17 @@ public class ServerController {
 	public static final int PORT = 12345;
 	private ServerView serverView;
 	private ServerModel serverModel;
-	private Document doc;
-	private ServerThread st;
 	
 	public ServerController(ServerView serverView, ServerModel serverModel) {
 		this.serverView = serverView;
 		this.serverModel = serverModel;
+		serverModel.addControllerToModel(this);
 		
 		try {
 			runServer();
 		} catch (IOException e) {
 			log.error(e);
 		}
-	}
-
-	public ServerController(Document doc, ServerThread st) {
-		this.doc = doc;
-		this.st = st;
 	}
 
 	/**
@@ -53,7 +47,7 @@ public class ServerController {
 		}
     }
 
-	public void writeInSocket() throws IOException {
+	public void writeInSocket(Document doc, ServerThread st) throws IOException {
 		try {
 			Transformer t= TransformerFactory.newInstance().newTransformer();
 			Source source = new DOMSource(doc);

@@ -89,7 +89,10 @@ public class ClientViewChat extends JFrame {
      * @return name user.
      */
     public String getSelectedUser() {
-        return selectedUser;
+        if (selectedUser != null) {
+            return selectedUser;
+        } else return "";
+
     }
 
     /**

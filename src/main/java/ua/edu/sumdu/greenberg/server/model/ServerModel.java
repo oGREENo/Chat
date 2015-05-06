@@ -19,6 +19,11 @@ public class ServerModel {
     private static Map<User, ServerThread> userMap = new HashMap<User, ServerThread>();
     private User user;
     private DocumentBuilder builder;
+    private ServerController serverController;
+
+    public void addControllerToModel(ServerController serverController) {
+        this.serverController = serverController;
+    }
 
     public void addUser(User user, ServerThread serverThread) {
         userMap.put(user,serverThread);
@@ -39,24 +44,23 @@ public class ServerModel {
     public void readMessage(Document doc, ServerThread serverThread) throws IOException {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
-        String to_nick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
+        String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        System.out.println("Server Message : nick - " + nick + ", to-nick - " + to_nick + ", action - " + action +", text - " + text + ".");
+        System.out.println("Server Message : nick - " + nick + ", toNick - " + toNick + ", action - " + action +", text - " + text + ".");
         if (action.equals("ADD_USER")) {
             user = new User(nick);
             addUser(user, serverThread);
         } else if (action.equals("REMOVE_USER")) {
             user = new User(nick);
             removeUser(user);
-        } else if (action.equals("")) {
+        } else if (action.equals("") && toNick.equals("")) {
             System.out.println("Action = null. Message ; " + text);
-            User users;
+//            User users;
             ServerThread st;
             for (Map.Entry entry : userMap.entrySet()) {
-                users = (User) entry.getKey();
+//                users = (User) entry.getKey();
                 st = (ServerThread) entry.getValue();
-                ServerController sc = new ServerController(createXML(nick, to_nick, action, text), st);
-                sc.writeInSocket();
+                serverController.writeInSocket(createXML(nick, toNick, action, text), st);
             }
         }
     }
