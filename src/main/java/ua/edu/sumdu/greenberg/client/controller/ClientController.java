@@ -1,7 +1,6 @@
 package ua.edu.sumdu.greenberg.client.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -51,6 +50,16 @@ public class ClientController {
 		this.clientViewLogin.clickLogin(new ClickLogin());
 		this.clientViewChat.clickSend(new ClickSend());
 		this.clientViewChat.clickPrivate(new ClickPrivate());
+		this.clientViewChat.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				try {
+					writeInSocket(name, null, "REMOVE_USER", "Bye");
+				} catch (IOException e1) {
+					log.error(e1);
+				}
+				System.exit(0);
+			}
+		});
 	}
 
 	/**
