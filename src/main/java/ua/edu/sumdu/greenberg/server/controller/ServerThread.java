@@ -11,7 +11,6 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import ua.edu.sumdu.greenberg.server.model.ServerModel;
-import ua.edu.sumdu.greenberg.server.model.User;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -44,7 +43,7 @@ public class ServerThread implements Runnable {
 			while ((message = bufferedReader.readLine()) != null) {
 				is.setCharacterStream(new StringReader(message));
 				Document doc = db.parse(is);
-				serverModel.readMesage(doc, this);
+				serverModel.readMessage(doc, this);
 				message = null;
 			}
 			socket.close();
@@ -55,5 +54,9 @@ public class ServerThread implements Runnable {
 		} catch (SAXException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Socket getSocket() {
+		return socket;
 	}
 }

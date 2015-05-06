@@ -33,6 +33,7 @@ public class ClientMessageThread implements Runnable {
 		try {
 			bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			while ((message = bufferedReader.readLine()) != null) {
+				System.out.println(message);
 //				if (getSystemMessage(message)) {
 //					readSystemMessage(message);
 //				} else {
