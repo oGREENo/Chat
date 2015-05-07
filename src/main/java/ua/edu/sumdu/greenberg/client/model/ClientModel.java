@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class is model.
+ */
 public class ClientModel {
     private static final Logger log = Logger.getLogger(ClientModel.class);
     private Pattern pattern;
@@ -30,6 +33,10 @@ public class ClientModel {
     private ClientController clientController;
     private ArrayList usersList = new ArrayList<String>();
 
+    /**
+     * This method added ClientController.
+     * @param clientController - ClientController.
+     */
     public void addClientModel(ClientController clientController) {
         this.clientController = clientController;
     }
@@ -69,7 +76,15 @@ public class ClientModel {
         return ((port >= 1) && (port <= 65355) && (port != 80))? true : false;
     }
 
-    public Document createXML(String nick, String to_nick, String action, String text) {
+    /**
+     * This method create new XML.
+     * @param nick - nick.
+     * @param toNick - toNick.
+     * @param action - action.
+     * @param text - message.
+     * @return
+     */
+    public Document createXML(String nick, String toNick, String action, String text) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             builder = factory.newDocumentBuilder();
@@ -87,9 +102,9 @@ public class ClientModel {
             NameElementNick.appendChild(doc.createTextNode(""));
             RootElement.appendChild(NameElementNick);
         }
-        if (to_nick != null) {
+        if (toNick != null) {
             Element NameElementToNick = doc.createElement("to_nick");
-            NameElementToNick.appendChild(doc.createTextNode(to_nick));
+            NameElementToNick.appendChild(doc.createTextNode(toNick));
             RootElement.appendChild(NameElementToNick);
         } else {
             Element NameElementToNick = doc.createElement("to_nick");
@@ -118,6 +133,11 @@ public class ClientModel {
         return doc;
     }
 
+    /**
+     * This method read the XML.
+     * @param doc - xml.
+     * @param clientThread - thread.
+     */
     public void readMessage(Document doc, ClientMessageThread clientThread) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
@@ -128,5 +148,12 @@ public class ClientModel {
             usersList.add(text);
         }
     }
-    
+
+    /**
+     * This method returned array a users.
+     * @return ArrayList.
+     */
+    public ArrayList getUsersList() {
+        return usersList;
+    }
 }
