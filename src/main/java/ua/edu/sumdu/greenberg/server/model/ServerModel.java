@@ -55,14 +55,20 @@ public class ServerModel {
             user = new User(nick);
             removeUser(user);
         } else if (action.equals("GET_USER_LIST")) {
+
             ServerThread st;
-            arrUsers = null;
+            arrUsers.clear();
             arrUsers = getNameUsers();
             for (Map.Entry entry : userMap.entrySet()) {
-                st = (ServerThread) entry.getValue();
-                for (int i = 0; i < arrUsers.size(); i++) {
-                    String name = arrUsers.get(i).toString();
-                    serverController.writeInSocket(createXML(nick, toNick, action, name), st);
+                if (entry.getKey().toString().equals(nick)) {
+                    st = (ServerThread) entry.getValue();
+                    for (int i = 0; i < arrUsers.size(); i++) {
+                        String name = arrUsers.get(i).toString();
+                        serverController.writeInSocket(createXML(nick, toNick, action, name), st);
+                    }
+                } else {
+                    st = (ServerThread) entry.getValue();
+                    serverController.writeInSocket(createXML(entry.getKey().toString(), toNick, "ADDED_USER", nick), st);
                 }
             }
 

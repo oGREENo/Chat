@@ -5,6 +5,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  * This class creates a chat window.
@@ -17,6 +18,7 @@ public class ClientViewChat extends JFrame {
     private JButton privateButton;
     private String selectedUser;
     private String mess;
+    private DefaultListModel listUsers = new DefaultListModel();
 
     /**
      * This is the class constructor.
@@ -52,7 +54,7 @@ public class ClientViewChat extends JFrame {
      * @param panel - JPanel.
      */
     private void userList(JPanel panel) {
-        userList = new JList(new String[]{"Иванов", "Петров", "Сидоров", "Очень большое имя"});
+        userList = new JList(listUsers);
         userList.addListSelectionListener(
                 new ListSelectionListener() {
                     public void valueChanged(ListSelectionEvent e) {
@@ -135,5 +137,15 @@ public class ClientViewChat extends JFrame {
     public void clearSelectedUser() {
         listMessage.clearSelection();
         message.setText("");
+    }
+
+    public void addUsersToList(ArrayList usersList) {
+        listUsers.clear();
+        for (int i = 0; i < usersList.size(); i++) {
+            listUsers.add(i, usersList.get(i));
+        }
+        System.out.println("ClientViewChat getting: " + listUsers);
+
+//        this.getContentPane().repaint();
     }
 }

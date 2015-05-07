@@ -6,6 +6,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -198,5 +199,9 @@ public class ClientController {
 		} catch (TransformerException e) {
 			log.error(e);
 		}
+	}
+
+	public void addUserListToModel() {
+		clientViewChat.addUsersToList(clientModel.getUsersList());
 	}
 }

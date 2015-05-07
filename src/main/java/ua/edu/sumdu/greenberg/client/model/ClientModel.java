@@ -146,6 +146,7 @@ public class ClientModel {
         System.out.println("Client Message : nick - " + nick + ", toNick - " + toNick + ", action - " + action +", text - " + text + ".");
         if (action.equals("GET_USER_LIST")) {
             usersList.add(text);
+            clientController.addUserListToModel();
         }
     }
 
@@ -154,6 +155,7 @@ public class ClientModel {
      * @return ArrayList.
      */
     public ArrayList getUsersList() {
+        System.out.println("GetUsersList: " + usersList);
         return usersList;
     }
 }
