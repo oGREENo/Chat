@@ -3,10 +3,13 @@ package ua.edu.sumdu.greenberg.client.model;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import ua.edu.sumdu.greenberg.client.controller.ClientController;
+import ua.edu.sumdu.greenberg.client.controller.ClientMessageThread;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +27,12 @@ public class ClientModel {
     private static final String LOCALHOST_PATTERN =
             "localhost";
     private DocumentBuilder builder;
+    private ClientController clientController;
+    private ArrayList usersList = new ArrayList<String>();
+
+    public void addClientModel(ClientController clientController) {
+        this.clientController = clientController;
+    }
 
     /**
      * This method checks the entered data.
@@ -108,4 +117,16 @@ public class ClientModel {
         doc.appendChild(RootElement);
         return doc;
     }
+
+    public void readMessage(Document doc, ClientMessageThread clientThread) {
+        String action = doc.getElementsByTagName("action").item(0).getTextContent();
+        String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
+        String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
+        String text = doc.getElementsByTagName("text").item(0).getTextContent();
+        System.out.println("Client Message : nick - " + nick + ", toNick - " + toNick + ", action - " + action +", text - " + text + ".");
+        if (action.equals("GET_USER_LIST")) {
+            usersList.add(text);
+        }
+    }
+    
 }

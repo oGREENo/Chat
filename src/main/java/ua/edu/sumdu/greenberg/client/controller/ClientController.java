@@ -45,6 +45,7 @@ public class ClientController {
 			ClientViewChat clientViewChat, ClientModel clientModel) {
 		this.clientView = clientView;
 		this.clientModel = clientModel;
+		clientModel.addClientModel(this);
 		this.clientViewLogin = clientViewLogin;
 		this.clientViewChat = clientViewChat;
 		this.clientViewLogin.clickLogin(new ClickLogin());
@@ -146,7 +147,7 @@ public class ClientController {
 		} catch (IOException e) {
 			log.error(e);
 		}
-		Runnable runnable = new ClientMessageThread(socket);
+		Runnable runnable = new ClientMessageThread(socket, clientModel);
 		Thread thread = new Thread(runnable);
 		thread.start();
 		log.info("Connect to URL - " + clientViewLogin.getUrl() + " and PORT - " + clientViewLogin.getPort());
