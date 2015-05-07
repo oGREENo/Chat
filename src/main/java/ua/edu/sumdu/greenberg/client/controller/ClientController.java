@@ -90,7 +90,11 @@ public class ClientController {
 					}
 					clientViewLogin.setVisible(false);
 					clientViewChat.setVisible(true);
-					// GET USER LIST
+					try {
+						writeInSocket(name, null, "GET_USER_LIST", null);
+					} catch (IOException e) {
+						log.error(e);
+					}
 				}
 			}
 		}

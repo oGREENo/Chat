@@ -20,6 +20,7 @@ public class ServerModel {
     private User user;
     private DocumentBuilder builder;
     private ServerController serverController;
+    private ArrayList arrUsers = new ArrayList<String>();
 
     public void addControllerToModel(ServerController serverController) {
         this.serverController = serverController;
@@ -53,6 +54,19 @@ public class ServerModel {
         } else if (action.equals("REMOVE_USER")) {
             user = new User(nick);
             removeUser(user);
+        } else if (action.equals("GET_USER_LIST")) {
+            ServerThread st;
+            arrUsers = null;
+            arrUsers = getNameUsers();
+            for (Map.Entry entry : userMap.entrySet()) {
+                st = (ServerThread) entry.getValue();
+                for (int i = 0; i < arrUsers.size(); i++) {
+                    String name = arrUsers.get(i).toString();
+                    serverController.writeInSocket(createXML(nick, toNick, action, name), st);
+                }
+            }
+
+
         } else if (action.equals("") && toNick.equals("")) {
             System.out.println("Action = null. Message ; " + text);
 //            User users;
