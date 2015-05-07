@@ -16,7 +16,6 @@ public class ClientViewChat extends JFrame {
     private JTextField message;
     private JButton sendButton;
     private JButton privateButton;
-    private String selectedUser;
     private String mess;
     private DefaultListModel listUsers = new DefaultListModel();
 
@@ -55,13 +54,6 @@ public class ClientViewChat extends JFrame {
      */
     private void userList(JPanel panel) {
         userList = new JList(listUsers);
-        userList.addListSelectionListener(
-                new ListSelectionListener() {
-                    public void valueChanged(ListSelectionEvent e) {
-                        Object element = userList.getSelectedValue();
-                        setSelectedUser(element.toString());
-                    }
-                });
         JScrollPane scroolUser = new JScrollPane(userList);
         panel.add(scroolUser, BorderLayout.EAST);
     }
@@ -91,18 +83,7 @@ public class ClientViewChat extends JFrame {
      * @return name user.
      */
     public String getSelectedUser() {
-        if (selectedUser != null) {
-            return selectedUser;
-        } else return "";
-
-    }
-
-    /**
-     * This method sets the name of the selected user.
-     * @param selectedUser - name user.
-     */
-    public void setSelectedUser(String selectedUser) {
-        this.selectedUser = selectedUser;
+        return userList.getSelectedValue().toString();
     }
 
     /**
@@ -139,14 +120,14 @@ public class ClientViewChat extends JFrame {
         message.setText("");
     }
 
+    /**
+     * This method add user to list.
+     * @param usersList - user list.
+     */
     public void addUsersToList(ArrayList usersList) {
         listUsers.clear();
         for (int i = 0; i < usersList.size(); i++) {
             listUsers.add(i, usersList.get(i));
         }
-    }
-
-    public void clearListUser() {
-        listUsers.clear();
     }
 }
