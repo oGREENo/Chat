@@ -17,7 +17,6 @@ public class ClientViewChat extends JFrame {
     private JButton sendButton;
     private JButton privateButton;
     private String mess;
-    private DefaultListModel listUsers = new DefaultListModel();
 
     /**
      * This is the class constructor.
@@ -43,7 +42,7 @@ public class ClientViewChat extends JFrame {
      * @param panel - JPanel.
      */
 	private void messageList(JPanel panel) {
-        listMessage = new JList(new String[]{"Message 1", "Message 2", "Message 3", "Message 4"});
+        listMessage = new JList();
         JScrollPane scroolChat = new JScrollPane(listMessage);
         panel.add(scroolChat, BorderLayout.CENTER);
     }
@@ -53,7 +52,7 @@ public class ClientViewChat extends JFrame {
      * @param panel - JPanel.
      */
     private void userList(JPanel panel) {
-        userList = new JList(listUsers);
+        userList = new JList();
         JScrollPane scroolUser = new JScrollPane(userList);
         panel.add(scroolUser, BorderLayout.EAST);
     }
@@ -125,9 +124,14 @@ public class ClientViewChat extends JFrame {
      * @param usersList - user list.
      */
     public void addUsersToList(ArrayList usersList) {
-        listUsers.clear();
-        for (int i = 0; i < usersList.size(); i++) {
-            listUsers.add(i, usersList.get(i));
-        }
+        userList.setListData(usersList.toArray());
+    }
+
+    /**
+     * This method add messages to list.
+     * @param chatList - array message.
+     */
+    public void addMessageToChat(ArrayList chatList) {
+        listMessage.setListData(chatList.toArray());
     }
 }

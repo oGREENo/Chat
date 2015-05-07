@@ -39,15 +39,13 @@ public class ClientMessageThread implements Runnable {
 		DocumentBuilder db = null;
 		try {
 			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-		InputSource is = new InputSource();
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		String message = null;
-		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		Date date = new Date();
+			InputSource is = new InputSource();
+			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			String message = null;
 			while ((message = bufferedReader.readLine()) != null) {
 				is.setCharacterStream(new StringReader(message));
 				Document doc = db.parse(is);
-				clientModel.readMessage(doc, this);
+				clientModel.readMessage(doc);
 				message = null;
 			}
 		} catch (ParserConfigurationException e) {

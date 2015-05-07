@@ -204,4 +204,8 @@ public class ClientController {
 	public void addUserListToModel() {
 		clientViewChat.addUsersToList(clientModel.getUsersList());
 	}
+
+	public void addMessageToChat() {
+		clientViewChat.addMessageToChat(clientModel.getChatList());
+	}
 }

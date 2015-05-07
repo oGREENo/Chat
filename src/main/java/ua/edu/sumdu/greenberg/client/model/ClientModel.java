@@ -10,7 +10,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -33,6 +36,7 @@ public class ClientModel {
     private DocumentBuilder builder;
     private ClientController clientController;
     private ArrayList usersList = new ArrayList<String>();
+    private ArrayList chatList = new ArrayList<String>();
 
     /**
      * This method added ClientController.
@@ -137,9 +141,8 @@ public class ClientModel {
     /**
      * This method read the XML.
      * @param doc - xml.
-     * @param clientThread - thread.
      */
-    public void readMessage(Document doc, ClientMessageThread clientThread) {
+    public void readMessage(Document doc) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
         String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
@@ -154,6 +157,11 @@ public class ClientModel {
         } else if (action.equals("REMOVE_USER")) {
             usersList.remove(text);
             clientController.addUserListToModel();
+        } else if (action.equals("")) {
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            Date date = new Date();
+            chatList.add(dateFormat.format(date) + " " + text);
+            clientController.addMessageToChat();
         }
     }
 
@@ -164,5 +172,9 @@ public class ClientModel {
     public ArrayList getUsersList() {
         System.out.println("GetUsersList: " + usersList);
         return usersList;
+    }
+
+    public ArrayList getChatList() {
+        return chatList;
     }
 }

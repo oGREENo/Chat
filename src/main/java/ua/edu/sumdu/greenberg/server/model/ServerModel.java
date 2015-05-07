@@ -87,14 +87,14 @@ public class ServerModel {
             ServerThread st;
             for (Map.Entry entry : userMap.entrySet()) {
                 st = (ServerThread) entry.getValue();
-                serverController.writeInSocket(createXML(nick, toNick, action, text), st);
+                serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
             }
         } else if (action.equals("") && !toNick.equals("")) {
             ServerThread st;
             for (Map.Entry entry : userMap.entrySet()) {
                 if (entry.getKey().toString().equals(toNick)) {
                     st = (ServerThread) entry.getValue();
-                    serverController.writeInSocket(createXML(nick, toNick, action, text), st);
+                    serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
                 }
             }
         }
