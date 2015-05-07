@@ -144,8 +144,9 @@ public class ClientViewChat extends JFrame {
         for (int i = 0; i < usersList.size(); i++) {
             listUsers.add(i, usersList.get(i));
         }
-        System.out.println("ClientViewChat getting: " + listUsers);
+    }
 
-//        this.getContentPane().repaint();
+    public void clearListUser() {
+        listUsers.clear();
     }
 }

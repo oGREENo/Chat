@@ -32,6 +32,7 @@ public class ServerModel {
 
     public void removeUser(User user) {
         userMap.remove(user);
+
     }
 
     public ArrayList getNameUsers() {
@@ -54,6 +55,16 @@ public class ServerModel {
         } else if (action.equals("REMOVE_USER")) {
             user = new User(nick);
             removeUser(user);
+            ServerThread st;
+            arrUsers.clear();
+            arrUsers = getNameUsers();
+            for (Map.Entry entry : userMap.entrySet()) {
+                st = (ServerThread) entry.getValue();
+                for (int i = 0; i < arrUsers.size(); i++) {
+                    String name = arrUsers.get(i).toString();
+                    serverController.writeInSocket(createXML(name, toNick, "REMOVE_USER", nick), st);
+                }
+            }
         } else if (action.equals("GET_USER_LIST")) {
 
             ServerThread st;

@@ -9,6 +9,7 @@ import ua.edu.sumdu.greenberg.client.controller.ClientMessageThread;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -146,6 +147,12 @@ public class ClientModel {
         System.out.println("Client Message : nick - " + nick + ", toNick - " + toNick + ", action - " + action +", text - " + text + ".");
         if (action.equals("GET_USER_LIST")) {
             usersList.add(text);
+            clientController.addUserListToModel();
+        } else if (action.equals("ADDED_USER")) {
+            usersList.add(text);
+            clientController.addUserListToModel();
+        } else if (action.equals("REMOVE_USER")) {
+            usersList.remove(text);
             clientController.addUserListToModel();
         }
     }
