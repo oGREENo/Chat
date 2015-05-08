@@ -50,9 +50,14 @@ public class ClientViewChat extends JFrame {
      * @param panel - JPanel.
      */
     private void userList(JPanel panel) {
+        JPanel userPanel = new JPanel();
+        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
+        JLabel uList = new JLabel("List of users : ");
         userList = new JList();
-        JScrollPane scroolUser = new JScrollPane(userList);
-        panel.add(scroolUser, BorderLayout.EAST);
+        JScrollPane scrollUser = new JScrollPane(userList);
+        userPanel.add(uList);
+        userPanel.add(scrollUser);
+        panel.add(userPanel, BorderLayout.EAST);
     }
 
     /**
@@ -62,7 +67,6 @@ public class ClientViewChat extends JFrame {
     private void createMessageSend(JPanel sendPanel) {
         JLabel textMessage = new JLabel("Your message: ");
         message = new JTextField(40);
-        message.setSize(500, 50);
         sendButton = new JButton("Send");
         privateButton = new JButton("Private");
 
