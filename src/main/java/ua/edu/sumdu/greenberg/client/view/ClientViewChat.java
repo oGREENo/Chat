@@ -76,6 +76,14 @@ public class ClientViewChat extends JFrame {
     }
 
     /**
+     * This method returns true if the user has selected.
+     * @return true or false.
+     */
+    public boolean selectedUser() {
+        return (userList.getSelectedValue() != null)? true : false;
+    }
+
+    /**
      * This method gets the name of the selected user.
      * @return name user.
      */

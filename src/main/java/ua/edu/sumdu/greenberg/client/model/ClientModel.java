@@ -145,7 +145,6 @@ public class ClientModel {
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
         String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        System.out.println("Client Message : nick - " + nick + ", toNick - " + toNick + ", action - " + action +", text - " + text + ".");
         if (action.equals("GET_USER_LIST")) {
             usersList.add(text);
             clientController.addUserListToModel();
@@ -168,7 +167,6 @@ public class ClientModel {
      * @return ArrayList.
      */
     public ArrayList getUsersList() {
-        System.out.println("GetUsersList: " + usersList);
         return usersList;
     }
 

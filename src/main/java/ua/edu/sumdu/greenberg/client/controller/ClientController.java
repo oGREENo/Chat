@@ -76,7 +76,7 @@ public class ClientController {
 					log.error(e);
 				}
 				port = clientViewLogin.getPort();
-				if (pingServer(addr, port, 25)) {
+				if (pingServer(addr, port, 35)) {
 					log.info("Server is running");
 					user = new User(name, url, port);
 					createConnection();
@@ -121,7 +121,7 @@ public class ClientController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (!clientViewChat.getMessage().equals("")) {
-				if (!clientViewChat.getSelectedUser().equals("")) {
+				if (clientViewChat.selectedUser() && !clientViewChat.getSelectedUser().equals("")) {
 					try {
 						writeInSocket(name, clientViewChat.getSelectedUser(), null, clientViewChat.getMessage());
 						clientViewChat.clearSelectedUser();
