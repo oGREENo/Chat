@@ -48,7 +48,6 @@ public class ServerModel {
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
         String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        System.out.println("Server Message : nick - " + nick + ", toNick - " + toNick + ", action - " + action +", text - " + text + ".");
         if (action.equals("ADD_USER")) {
             user = new User(nick);
             addUser(user, serverThread);
