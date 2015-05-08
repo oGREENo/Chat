@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.Socket;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ClientMessageThread implements Runnable {
 	private static final Logger log = Logger.getLogger(ClientMessageThread.class);

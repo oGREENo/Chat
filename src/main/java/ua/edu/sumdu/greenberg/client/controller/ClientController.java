@@ -6,12 +6,10 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import ua.edu.sumdu.greenberg.client.model.ClientModel;
-import ua.edu.sumdu.greenberg.client.view.ClientView;
 import ua.edu.sumdu.greenberg.client.view.ClientViewChat;
 import ua.edu.sumdu.greenberg.client.view.ClientViewLogin;
 import ua.edu.sumdu.greenberg.client.model.User;
@@ -25,7 +23,6 @@ import javax.xml.transform.stream.StreamResult;
  */
 public class ClientController {
 	private static final Logger log = Logger.getLogger(ClientController.class);
-	private ClientView clientView;
 	private ClientViewLogin clientViewLogin;
 	private ClientViewChat clientViewChat;
 	private ClientModel clientModel;
@@ -37,14 +34,12 @@ public class ClientController {
 
 	/**
 	 * This is the class constructor.
-	 * @param clientView - clientView.
 	 * @param clientViewLogin - clientViewLogin.
 	 * @param clientViewChat - clientViewChat.
 	 * @param clientModel - clientModel.
 	 */
-	public ClientController(ClientView clientView, ClientViewLogin clientViewLogin, 
+	public ClientController(ClientViewLogin clientViewLogin,
 			ClientViewChat clientViewChat, ClientModel clientModel) {
-		this.clientView = clientView;
 		this.clientModel = clientModel;
 		clientModel.addClientModel(this);
 		this.clientViewLogin = clientViewLogin;
