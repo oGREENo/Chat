@@ -13,17 +13,24 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+/**
+ * This class is the controller.
+ */
 public class ServerController {
 	private static final Logger log = Logger.getLogger(ServerController.class);
 	public static final int PORT = 12345;
 	private ServerView serverView;
 	private ServerModel serverModel;
-	
+
+	/**
+	 * This is the class constructor.
+	 * @param serverView - serverView.
+	 * @param serverModel - serverModel.
+	 */
 	public ServerController(ServerView serverView, ServerModel serverModel) {
 		this.serverView = serverView;
 		this.serverModel = serverModel;
 		serverModel.addControllerToModel(this);
-		
 		try {
 			runServer();
 		} catch (IOException e) {
@@ -47,6 +54,12 @@ public class ServerController {
 		}
     }
 
+	/**
+	 * This method send xml to Socket.
+	 * @param doc - Document.
+	 * @param st - serverThread
+	 * @throws IOException
+	 */
 	public void writeInSocket(Document doc, ServerThread st) throws IOException {
 		try {
 			Transformer t= TransformerFactory.newInstance().newTransformer();

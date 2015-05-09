@@ -196,10 +196,16 @@ public class ClientController {
 		}
 	}
 
+	/**
+	 * This method sends a list of users clientViewChat.
+	 */
 	public void addUserListToModel() {
 		clientViewChat.addUsersToList(clientModel.getUsersList());
 	}
 
+	/**
+	 * This method send a list of messages to clientViewChat.
+	 */
 	public void addMessageToChat() {
 		clientViewChat.addMessageToChat(clientModel.getChatList());
 	}

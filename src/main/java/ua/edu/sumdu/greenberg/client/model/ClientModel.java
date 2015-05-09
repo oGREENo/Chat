@@ -85,7 +85,7 @@ public class ClientModel {
      * @param toNick - toNick.
      * @param action - action.
      * @param text - message.
-     * @return
+     * @return Document.
      */
     public Document createXML(String nick, String toNick, String action, String text) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -170,6 +170,10 @@ public class ClientModel {
         return usersList;
     }
 
+    /**
+     * This method returned array a messages.
+     * @return ArrayList.
+     */
     public ArrayList getChatList() {
         return chatList;
     }

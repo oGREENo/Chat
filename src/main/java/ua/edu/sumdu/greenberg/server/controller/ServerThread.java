@@ -16,6 +16,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * This class wait messages.
+ */
 public class ServerThread implements Runnable {
 	private static final Logger log = Logger.getLogger(ServerThread.class);
 	private Socket socket;
@@ -34,7 +37,6 @@ public class ServerThread implements Runnable {
 	 * This method starts a thread.
 	 */
 	public void run() {
-
 		try {
 			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			InputSource is = new InputSource();
@@ -56,6 +58,10 @@ public class ServerThread implements Runnable {
 		}
 	}
 
+	/**
+	 * This method returned a socket.
+	 * @return socket
+	 */
 	public Socket getSocket() {
 		return socket;
 	}

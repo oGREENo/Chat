@@ -15,6 +15,9 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.Socket;
 
+/**
+ * This class wait messages.
+ */
 public class ClientMessageThread implements Runnable {
 	private static final Logger log = Logger.getLogger(ClientMessageThread.class);
 	private Socket socket;

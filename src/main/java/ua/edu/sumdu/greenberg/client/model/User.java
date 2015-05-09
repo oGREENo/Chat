@@ -20,7 +20,6 @@ public class User {
             setUrl(url);
             setPort(port);
         } else throw new IllegalArgumentException("Name or URL = null. Or port < 0");
-
     }
 
     /**

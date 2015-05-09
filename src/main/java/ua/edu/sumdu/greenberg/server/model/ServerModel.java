@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is class a model.
+ */
 public class ServerModel {
     private static final Logger log = Logger.getLogger(ServerModel.class);
     private static Map<User, ServerThread> userMap = new HashMap<User, ServerThread>();
@@ -22,19 +25,36 @@ public class ServerModel {
     private ServerController serverController;
     private ArrayList arrUsers = new ArrayList<String>();
 
+    /**
+     * This method added a ServerController.
+     * @param serverController - ServerController
+     */
     public void addControllerToModel(ServerController serverController) {
         this.serverController = serverController;
     }
 
+    /**
+     * This method adding user and ServerTread to array.
+     * @param user - user.
+     * @param serverThread - ServerThread.
+     */
     public void addUser(User user, ServerThread serverThread) {
         userMap.put(user,serverThread);
     }
 
+    /**
+     * This method removing user from array.
+     * @param user - user.
+     */
     public void removeUser(User user) {
         userMap.remove(user);
 
     }
 
+    /**
+     * This method return from array a user name.
+     * @return array.
+     */
     public ArrayList getNameUsers() {
         ArrayList users = new ArrayList<String>();
         for (Map.Entry entry : userMap.entrySet()) {
@@ -43,6 +63,12 @@ public class ServerModel {
         return users;
     }
 
+    /**
+     * This method read a MXL.
+     * @param doc - Document.
+     * @param serverThread - ServerThread.
+     * @throws IOException
+     */
     public void readMessage(Document doc, ServerThread serverThread) throws IOException {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
@@ -80,8 +106,6 @@ public class ServerModel {
                     serverController.writeInSocket(createXML(entry.getKey().toString(), toNick, "ADDED_USER", nick), st);
                 }
             }
-
-
         } else if (action.equals("") && toNick.equals("")) {
             ServerThread st;
             for (Map.Entry entry : userMap.entrySet()) {
@@ -99,7 +123,15 @@ public class ServerModel {
         }
     }
 
-    public Document createXML(String nick, String to_nick, String action, String text) {
+    /**
+     * This method is created a XML.
+     * @param nick - nick.
+     * @param toNick - toNick.
+     * @param action - action.
+     * @param text - text.
+     * @return Document.
+     */
+    public Document createXML(String nick, String toNick, String action, String text) {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             builder = factory.newDocumentBuilder();
@@ -117,9 +149,9 @@ public class ServerModel {
             NameElementNick.appendChild(doc.createTextNode(""));
             RootElement.appendChild(NameElementNick);
         }
-        if (to_nick != null) {
+        if (toNick != null) {
             Element NameElementToNick = doc.createElement("to_nick");
-            NameElementToNick.appendChild(doc.createTextNode(to_nick));
+            NameElementToNick.appendChild(doc.createTextNode(toNick));
             RootElement.appendChild(NameElementToNick);
         } else {
             Element NameElementToNick = doc.createElement("to_nick");

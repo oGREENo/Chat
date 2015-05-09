@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * This class is created login frame.
+ */
 public class ClientViewLogin extends JFrame {
 	private static final long serialVersionUID = 101L;
 	private JTextField textLogin;
@@ -24,7 +27,10 @@ public class ClientViewLogin extends JFrame {
 	private String name;
 	private String url;
 	private int port;
-	
+
+	/**
+	 * This is constructor a ClientViewLogin
+	 */
 	public ClientViewLogin() {
 		super("Connect to Server");
 		setLocationRelativeTo(null);
@@ -33,7 +39,10 @@ public class ClientViewLogin extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 	}
-	
+
+	/**
+	 * This method adds elements to the form.
+	 */
 	private void createClientName() {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
@@ -43,6 +52,10 @@ public class ClientViewLogin extends JFrame {
 		inLoginComponents(clientLoginPanel);
 	}
 
+	/**
+	 * This method adds elements to the form.
+	 * @param panel - JPanel
+	 */
 	private void inLoginComponents(JPanel panel) {
 		panel.setLayout(new GridBagLayout());
 		JLabel nickName = new JLabel("Nick name:");
@@ -58,11 +71,9 @@ public class ClientViewLogin extends JFrame {
 				}
 			}
 		});
-
 		JLabel url = new JLabel("URL:");
 		panel.add(url, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
-		
 		textURL = new JTextField("127.0.0.1");
 		panel.add(textURL, new GridBagConstraints(1, 1, 3, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 5, 0, 0), 0, 0));
@@ -73,11 +84,9 @@ public class ClientViewLogin extends JFrame {
 				}
 			}
 		});
-		
 		JLabel port = new JLabel("Port:");
 		panel.add(port, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
-		
 		textPort = new JTextField("12345");
 		panel.add(textPort, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 5, 0, 0), 0, 0));
@@ -92,12 +101,9 @@ public class ClientViewLogin extends JFrame {
 				}
 			}
 		});
-		
 		jLoginButton = new JButton("Login");
 		panel.add(jLoginButton, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-		
-
 		jCancel = new JButton("Cancel");
 		panel.add(jCancel, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 35, 0, 0), 0, 0));
@@ -139,5 +145,4 @@ public class ClientViewLogin extends JFrame {
 	public void clickLogin(ActionListener listener) {
 		jLoginButton.addActionListener(listener);
 	}
-
 }
