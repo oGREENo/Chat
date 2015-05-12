@@ -147,19 +147,17 @@ public class ClientModel {
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
         if (action.equals("GET_USER_LIST")) {
             usersList.add(text);
-            clientController.addUserListToModel();
         } else if (action.equals("ADDED_USER")) {
             usersList.add(text);
-            clientController.addUserListToModel();
         } else if (action.equals("REMOVE_USER")) {
             usersList.remove(text);
-            clientController.addUserListToModel();
         } else if (action.equals("")) {
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             Date date = new Date();
             chatList.add(dateFormat.format(date) + " " + text);
             clientController.addMessageToChat();
         }
+        clientController.addUserListToModel();
     }
 
     /**
