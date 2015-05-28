@@ -16,8 +16,7 @@ public class ClientChat {
 		ClientViewLogin clientViewLogin = new ClientViewLogin();
 		ClientViewChat clientViewChat = new ClientViewChat();
 		ClientModel clientModel = new ClientModel();
-		ClientController clientController = new ClientController(clientViewLogin,
-				clientViewChat, clientModel);
+		new ClientController(clientViewLogin, clientViewChat, clientModel);
 		clientViewLogin.setVisible(true);
 	}
 }
