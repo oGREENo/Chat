@@ -14,6 +14,6 @@ public class ServerChat {
 	public ServerChat() {
 		ServerView serverView = new ServerView();
 		ServerModel serverModel = new ServerModel();
-		ServerController serverController = new ServerController(serverView, serverModel);
+		new ServerController(serverView, serverModel);
 	}
 }
