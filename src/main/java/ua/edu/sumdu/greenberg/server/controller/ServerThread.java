@@ -40,21 +40,20 @@ public class ServerThread implements Runnable {
 		try {
 			DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			InputSource is = new InputSource();
-			String message = null;
+			String message;
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			while ((message = bufferedReader.readLine()) != null) {
 				is.setCharacterStream(new StringReader(message));
 				Document doc = db.parse(is);
 				serverModel.readMessage(doc, this);
-				message = null;
-			}
+		}
 			socket.close();
 		} catch (IOException e) {
 			log.error(e);
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			log.error(e);
 		} catch (SAXException e) {
-			e.printStackTrace();
+			log.error(e);
 		}
 	}
 
