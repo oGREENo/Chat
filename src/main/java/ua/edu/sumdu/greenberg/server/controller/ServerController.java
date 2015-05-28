@@ -31,28 +31,39 @@ public class ServerController {
 		this.serverView = serverView;
 		this.serverModel = serverModel;
 		serverModel.addControllerToModel(this);
+		createServerSocket();
+	}
+
+	/**
+     * This method creates a ServerSocket.
+     */
+    public void createServerSocket() {
 		try {
-			runServer();
+			ServerSocket serverSocket = new ServerSocket(PORT);
+			serverView.consoleMessage("Server UP $ ready connection.");
+			waitingClients(serverSocket);
+		} catch (IOException e) {
+			log.error(e);
+		}
+    }
+
+	/**
+	 * This method waiting the client and starts new thread.
+	 * @param serverSocket - ServerSocket.
+	 */
+	private void waitingClients(ServerSocket serverSocket) {
+		try {
+			while (true) {
+				Socket socket = serverSocket.accept();
+				serverView.consoleMessage("Connection user.");
+				Runnable runnable = new ServerThread(socket, serverModel);
+				Thread thread = new Thread(runnable);
+				thread.start();
+			}
 		} catch (IOException e) {
 			log.error(e);
 		}
 	}
-
-	/**
-     * This method running a server.
-     * @throws IOException
-     */
-    public void runServer() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(PORT);
-        serverView.consoleMessage("Server UP $ ready connection.");
-        while (true) {
-            Socket socket = serverSocket.accept();
-            serverView.consoleMessage("Connection user.");
-			Runnable runnable = new ServerThread(socket, serverModel);
-			Thread thread = new Thread(runnable);
-			thread.start();
-		}
-    }
 
 	/**
 	 * This method send xml to Socket.
