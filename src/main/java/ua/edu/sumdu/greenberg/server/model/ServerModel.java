@@ -69,55 +69,115 @@ public class ServerModel {
      * @param serverThread - ServerThread.
      * @throws IOException
      */
-    public void readMessage(Document doc, ServerThread serverThread) throws IOException {
+    public void readMessage(Document doc, ServerThread serverThread) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
         String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        if (action.equals("ADD_USER")) {
-            user = new User(nick);
-            addUser(user, serverThread);
-        } else if (action.equals("REMOVE_USER")) {
-            user = new User(nick);
-            removeUser(user);
-            ServerThread st;
-            arrUsers.clear();
-            arrUsers = getNameUsers();
-            for (Map.Entry entry : userMap.entrySet()) {
+
+        if (action.equals("ADD_USER")) actionAddUser(nick, serverThread);
+        if (action.equals("REMOVE_USER")) actionRemoveUser(nick, toNick);
+        if (action.equals("GET_USER_LIST")) actionGetUserList(nick, toNick, action);
+        if (action.equals("") && toNick.equals("")) actionSendPrivateMessage(nick, toNick, action, text);
+        if (action.equals("") && !toNick.equals("")) actionSendMessage(nick, toNick, action, text);
+    }
+
+    /**
+     * This method receives a command to add a user.
+     * @param nick - nick.
+     * @param serverThread - Server Thread.
+     */
+    private void actionAddUser(String nick, ServerThread serverThread) {
+        user = new User(nick);
+        addUser(user, serverThread);
+    }
+
+    /**
+     * This method receives a command to remove a user.
+     * @param nick - nick.
+     * @param toNick - toNick.
+     */
+    private void actionRemoveUser(String nick, String toNick) {
+        user = new User(nick);
+        removeUser(user);
+        ServerThread st;
+        arrUsers.clear();
+        arrUsers = getNameUsers();
+        for (Map.Entry entry : userMap.entrySet()) {
+            st = (ServerThread) entry.getValue();
+            for (int i = 0; i < arrUsers.size(); i++) {
+                String name = arrUsers.get(i).toString();
+                try {
+                    serverController.writeInSocket(createXML(name, toNick, "REMOVE_USER", nick), st);
+                } catch (IOException e) {
+                    log.error(e);
+                }
+            }
+        }
+    }
+
+    /**
+     * This method receives a command to get a user list.
+     * @param nick - nick.
+     * @param toNick - toNick.
+     * @param action - action.
+     */
+    private void actionGetUserList(String nick, String toNick, String action) {
+        ServerThread st;
+        arrUsers.clear();
+        arrUsers = getNameUsers();
+        for (Map.Entry entry : userMap.entrySet()) {
+            if (entry.getKey().toString().equals(nick)) {
                 st = (ServerThread) entry.getValue();
                 for (int i = 0; i < arrUsers.size(); i++) {
                     String name = arrUsers.get(i).toString();
-                    serverController.writeInSocket(createXML(name, toNick, "REMOVE_USER", nick), st);
-                }
-            }
-        } else if (action.equals("GET_USER_LIST")) {
-            ServerThread st;
-            arrUsers.clear();
-            arrUsers = getNameUsers();
-            for (Map.Entry entry : userMap.entrySet()) {
-                if (entry.getKey().toString().equals(nick)) {
-                    st = (ServerThread) entry.getValue();
-                    for (int i = 0; i < arrUsers.size(); i++) {
-                        String name = arrUsers.get(i).toString();
+                    try {
                         serverController.writeInSocket(createXML(nick, toNick, action, name), st);
+                    } catch (IOException e) {
+                        log.error(e);
                     }
-                } else {
-                    st = (ServerThread) entry.getValue();
+                }
+            } else {
+                st = (ServerThread) entry.getValue();
+                try {
                     serverController.writeInSocket(createXML(entry.getKey().toString(), toNick, "ADDED_USER", nick), st);
+                } catch (IOException e) {
+                    log.error(e);
                 }
             }
-        } else if (action.equals("") && toNick.equals("")) {
-            ServerThread st;
-            for (Map.Entry entry : userMap.entrySet()) {
-                st = (ServerThread) entry.getValue();
+        }
+    }
+
+    /**
+     * This method receives a command to send private message a user.
+     * @param nick - nick.
+     * @param toNick - toNick.
+     * @param action - action.
+     * @param text - text.
+     */
+    private void actionSendPrivateMessage(String nick, String toNick, String action, String text) {
+        ServerThread st;
+        for (Map.Entry entry : userMap.entrySet()) {
+            st = (ServerThread) entry.getValue();
+            try {
                 serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
+            } catch (IOException e) {
+                log.error(e);
             }
-        } else if (action.equals("") && !toNick.equals("")) {
+        }
+    }
+
+    private void actionSendMessage(String nick, String toNick, String action, String text) {
+        if (action.equals("") && !toNick.equals("")) {
             ServerThread st;
             for (Map.Entry entry : userMap.entrySet()) {
                 if (entry.getKey().toString().equals(toNick)) {
                     st = (ServerThread) entry.getValue();
-                    serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
+                    try {
+                        serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
+                    } catch (IOException e) {
+                        log.error(e);
+                    }
                 }
             }
         }
