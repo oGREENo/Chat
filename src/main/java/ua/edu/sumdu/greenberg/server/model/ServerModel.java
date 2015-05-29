@@ -67,7 +67,6 @@ public class ServerModel {
      * This method read a MXL.
      * @param doc - Document.
      * @param serverThread - ServerThread.
-     * @throws IOException
      */
     public void readMessage(Document doc, ServerThread serverThread) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
@@ -200,42 +199,27 @@ public class ServerModel {
         }
         Document doc=builder.newDocument();
         Element RootElement=doc.createElement("message");
-        if (nick != null) {
-            Element NameElementNick = doc.createElement("nick");
-            NameElementNick.appendChild(doc.createTextNode(nick));
-            RootElement.appendChild(NameElementNick);
-        } else {
-            Element NameElementNick = doc.createElement("nick");
-            NameElementNick.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementNick);
-        }
-        if (toNick != null) {
-            Element NameElementToNick = doc.createElement("to_nick");
-            NameElementToNick.appendChild(doc.createTextNode(toNick));
-            RootElement.appendChild(NameElementToNick);
-        } else {
-            Element NameElementToNick = doc.createElement("to_nick");
-            NameElementToNick.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementToNick);
-        }
-        if (action != null) {
-            Element NameElementAction = doc.createElement("action");
-            NameElementAction.appendChild(doc.createTextNode(action));
-            RootElement.appendChild(NameElementAction);
-        } else {
-            Element NameElementAction = doc.createElement("action");
-            NameElementAction.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementAction);
-        }
-        if (text != null) {
-            Element NameElementText = doc.createElement("text");
-            NameElementText.appendChild(doc.createTextNode(text));
-            RootElement.appendChild(NameElementText);
-        } else {
-            Element NameElementText = doc.createElement("text");
-            NameElementText.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementText);
-        }
+
+        Element NameElementNick = doc.createElement("nick");
+        if (nick != null) NameElementNick.appendChild(doc.createTextNode(nick));
+        else NameElementNick.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementNick);
+
+        Element NameElementToNick = doc.createElement("to_nick");
+        if (toNick != null) NameElementToNick.appendChild(doc.createTextNode(toNick));
+        else NameElementToNick.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementToNick);
+
+        Element NameElementAction = doc.createElement("action");
+        if (action != null) NameElementAction.appendChild(doc.createTextNode(action));
+        else NameElementAction.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementAction);
+
+        Element NameElementText = doc.createElement("text");
+        if (text != null) NameElementText.appendChild(doc.createTextNode(text));
+        else NameElementText.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementText);
+
         doc.appendChild(RootElement);
         return doc;
     }
