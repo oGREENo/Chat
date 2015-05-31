@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class ServerModel {
     private static final Logger log = Logger.getLogger(ServerModel.class);
-    private static Map<User, ServerThread> userMap = new HashMap<User, ServerThread>();
+    private Map<User, ServerThread> userMap = new HashMap<User, ServerThread>();
     private User user;
     private DocumentBuilder builder;
     private ServerController serverController;

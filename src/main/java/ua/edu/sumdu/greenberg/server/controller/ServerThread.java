@@ -28,7 +28,7 @@ public class ServerThread implements Runnable {
 	 * This is the constructor a class.
 	 * @param socket - socket.
 	 */
-	ServerThread(Socket socket, ServerModel serverModel) {
+	public ServerThread(Socket socket, ServerModel serverModel) {
 		this.socket = socket;
 		this.serverModel = serverModel;
 	}
