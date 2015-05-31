@@ -14,7 +14,6 @@ public class ClientViewChat extends JFrame {
     private JTextField message;
     private JButton sendButton;
     private JButton privateButton;
-    private String mess;
 
     /**
      * This is the class constructor.
@@ -84,7 +83,7 @@ public class ClientViewChat extends JFrame {
      * @return true or false.
      */
     public boolean selectedUser() {
-        return (userList.getSelectedValue() != null)? true : false;
+        return (userList.getSelectedValue() != null);
     }
 
     /**
@@ -100,9 +99,7 @@ public class ClientViewChat extends JFrame {
      * @return name.
      */
     public String getMessage() {
-        mess = null;
-        mess = message.getText();
-        return mess;
+        return message.getText();
     }
 
     /**
