@@ -49,14 +49,8 @@ public class ClientModel {
      * @return boolean.
      */
     public boolean validData(String login, String url, int port) {
-        if (login.length() > 0
-                && url.length() > 0
-                && port > 0 ) {
-            if (validIP(url) && validPort(port)) {
-                return true;
-            }
-        }
-        return false;
+        return (login.length() > 0 && url.length() > 0 && port > 0
+                && validIP(url) && validPort(port));
     }
 
     /**
@@ -96,42 +90,27 @@ public class ClientModel {
         }
         Document doc=builder.newDocument();
         Element RootElement=doc.createElement("message");
-        if (nick != null) {
-            Element NameElementNick = doc.createElement("nick");
-            NameElementNick.appendChild(doc.createTextNode(nick));
-            RootElement.appendChild(NameElementNick);
-        } else {
-            Element NameElementNick = doc.createElement("nick");
-            NameElementNick.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementNick);
-        }
-        if (toNick != null) {
-            Element NameElementToNick = doc.createElement("to_nick");
-            NameElementToNick.appendChild(doc.createTextNode(toNick));
-            RootElement.appendChild(NameElementToNick);
-        } else {
-            Element NameElementToNick = doc.createElement("to_nick");
-            NameElementToNick.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementToNick);
-        }
-        if (action != null) {
-            Element NameElementAction = doc.createElement("action");
-            NameElementAction.appendChild(doc.createTextNode(action));
-            RootElement.appendChild(NameElementAction);
-        } else {
-            Element NameElementAction = doc.createElement("action");
-            NameElementAction.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementAction);
-        }
-        if (text != null) {
-            Element NameElementText = doc.createElement("text");
-            NameElementText.appendChild(doc.createTextNode(text));
-            RootElement.appendChild(NameElementText);
-        } else {
-            Element NameElementText = doc.createElement("text");
-            NameElementText.appendChild(doc.createTextNode(""));
-            RootElement.appendChild(NameElementText);
-        }
+
+        Element NameElementNick = doc.createElement("nick");
+        if (nick != null) NameElementNick.appendChild(doc.createTextNode(nick));
+        else NameElementNick.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementNick);
+
+        Element NameElementToNick = doc.createElement("to_nick");
+        if (toNick != null) NameElementToNick.appendChild(doc.createTextNode(toNick));
+        else NameElementToNick.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementToNick);
+
+        Element NameElementAction = doc.createElement("action");
+        if (action != null) NameElementAction.appendChild(doc.createTextNode(action));
+        else NameElementAction.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementAction);
+
+        Element NameElementText = doc.createElement("text");
+        if (text != null) NameElementText.appendChild(doc.createTextNode(text));
+        else NameElementText.appendChild(doc.createTextNode(""));
+        RootElement.appendChild(NameElementText);
+
         doc.appendChild(RootElement);
         return doc;
     }
@@ -142,16 +121,11 @@ public class ClientModel {
      */
     public void readMessage(Document doc) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
-        String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
-        String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        if (action.equals("GET_USER_LIST")) {
-            usersList.add(text);
-        } else if (action.equals("ADDED_USER")) {
-            usersList.add(text);
-        } else if (action.equals("REMOVE_USER")) {
-            usersList.remove(text);
-        } else if (action.equals("")) {
+        if (action.equals("GET_USER_LIST")) usersList.add(text);
+        if (action.equals("ADDED_USER")) usersList.add(text);
+        if (action.equals("REMOVE_USER")) usersList.remove(text);
+        if (action.equals("")) {
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             Date date = new Date();
             chatList.add(dateFormat.format(date) + " " + text);
