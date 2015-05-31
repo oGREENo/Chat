@@ -23,10 +23,6 @@ public class ClientViewLogin extends JFrame {
 	private JTextField textURL;
 	private JTextField textPort;
 	private JButton jLoginButton;
-	private JButton jCancel;
-	private String name;
-	private String url;
-	private int port;
 
 	/**
 	 * This is constructor a ClientViewLogin
@@ -104,7 +100,7 @@ public class ClientViewLogin extends JFrame {
 		jLoginButton = new JButton("Login");
 		panel.add(jLoginButton, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
-		jCancel = new JButton("Cancel");
+		JButton jCancel = new JButton("Cancel");
 		panel.add(jCancel, new GridBagConstraints(1, 3, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 35, 0, 0), 0, 0));
 		jCancel.addActionListener(new ActionListener() {
@@ -120,8 +116,7 @@ public class ClientViewLogin extends JFrame {
 	 * @return name.
 	 */
 	public String getName() {
-		name = textLogin.getText();
-		return name;
+		return textLogin.getText();
 	}
 
 	/**
@@ -129,8 +124,7 @@ public class ClientViewLogin extends JFrame {
 	 * @return URL.
 	 */
 	public String getUrl() {
-		url = textURL.getText();
-		return url;
+		return textURL.getText();
 	}
 
 	/**
@@ -138,8 +132,7 @@ public class ClientViewLogin extends JFrame {
 	 * @return port.
 	 */
 	public int getPort() {
-		port = Integer.valueOf(textPort.getText());
-		return port;
+		return Integer.valueOf(textPort.getText());
 	}
 	
 	public void clickLogin(ActionListener listener) {
