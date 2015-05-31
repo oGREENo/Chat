@@ -2,10 +2,7 @@ package ua.edu.sumdu.greenberg.client.controller;
 
 import java.awt.event.*;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -54,6 +51,7 @@ public class ClientController {
 				} catch (IOException e1) {
 					log.error(e1);
 				}
+				log.info("The user has left.");
 				System.exit(0);
 			}
 		});
@@ -65,34 +63,50 @@ public class ClientController {
 	class ClickLogin implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			log.info("Click Login");
 			if (clientModel.validData(clientViewLogin.getName(), clientViewLogin.getUrl(), clientViewLogin.getPort())) {
 				name = clientViewLogin.getName();
 				url = clientViewLogin.getUrl();
-				InetAddress addr = null;
-				try {
-					addr = InetAddress.getByName(url);
-				} catch (UnknownHostException e) {
-					log.error(e);
-				}
 				port = clientViewLogin.getPort();
-				if (pingServer(addr, port, 35)) {
-					log.info("Server is running");
-					user = new User(name, url, port);
-					createConnection();
-					try {
-						writeInSocket(name, null, "ADD_USER", "Hello server");
-					} catch (IOException e) {
-						log.error(e);
-					}
-					clientViewLogin.setVisible(false);
-					clientViewChat.setVisible(true);
-					try {
-						writeInSocket(name, null, "GET_USER_LIST", null);
-					} catch (IOException e) {
-						log.error(e);
-					}
-				}
+				createNewUser(name, url, port);
+				createConnection();
+				comAddUser(name);
+				clientViewLogin.setVisible(false);
+				clientViewChat.setVisible(true);
+				comGetUserList(name);
+			}
+		}
+
+		/**
+		 * This method creates new user.
+		 * @param name - name.
+		 * @param url - url.
+		 * @param port - port.
+		 */
+		private void createNewUser(String name, String url, int port) {
+			user = new User(name, url, port);
+		}
+
+		/**
+		 * This method gives a command to the server.
+		 * @param name - name.
+		 */
+		private void comAddUser(String name) {
+			try {
+				writeInSocket(name, null, "ADD_USER", "Hello server");
+			} catch (IOException e) {
+				log.error(e);
+			}
+		}
+
+		/**
+		 * This method gives a command to the server.
+		 * @param name - name.
+		 */
+		private void comGetUserList(String name) {
+			try {
+				writeInSocket(name, null, "GET_USER_LIST", null);
+			} catch (IOException e) {
+				log.error(e);
 			}
 		}
 	}
@@ -147,32 +161,6 @@ public class ClientController {
 		Thread thread = new Thread(runnable);
 		thread.start();
 		log.info("Connect to URL - " + clientViewLogin.getUrl() + " and PORT - " + clientViewLogin.getPort());
-	}
-	
-	/**
-	 * This method checks the server is started.
-	 * @param addr - address server.
-	 * @param port - port server.
-	 * @param timeout -
-	 * @return
-	 */
-	public boolean pingServer(InetAddress addr, int port, int timeout) {
-		log.info("Ping Server.");
-		Socket socket = new Socket();
-		Exception exception = null;
-		try {
-			socket.connect(new InetSocketAddress(addr, port), timeout);
-		} catch (IOException e) {
-			log.error("IOException." + e);
-			exception = e;
-		} finally {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				log.error("IOException socket.close." + e);
-			}
-		}
-		return exception == null ? true : false;
 	}
 
 	/**
