@@ -47,8 +47,8 @@ public class ServerModel {
      * @param user - user.
      */
     public void removeUser(User user) {
+        log.info("The user has left.");
         userMap.remove(user);
-
     }
 
     /**
