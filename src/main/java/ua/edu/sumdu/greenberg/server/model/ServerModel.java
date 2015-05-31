@@ -97,8 +97,7 @@ public class ServerModel {
      * @param toNick - toNick.
      */
     private void actionRemoveUser(String nick, String toNick) {
-        user = new User(nick);
-        removeUser(user);
+        commandRemoveUser(nick);
         ServerThread st;
         arrUsers.clear();
         arrUsers = getNameUsers();
@@ -113,6 +112,15 @@ public class ServerModel {
                 }
             }
         }
+    }
+
+    /**
+     * This method gives a command to delete the user.
+     * @param nick - nick.
+     */
+    private void commandRemoveUser(String nick) {
+        user = new User(nick);
+        removeUser(user);
     }
 
     /**
