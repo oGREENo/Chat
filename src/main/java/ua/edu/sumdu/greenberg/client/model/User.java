@@ -15,7 +15,7 @@ public class User {
      * @param port - number port.
      */
     public User(String name, String url, int port) {
-        if (name != null || url != null || port < 0) {
+        if (name != null || url != null || port > 0) {
             setName(name);
             setUrl(url);
             setPort(port);
