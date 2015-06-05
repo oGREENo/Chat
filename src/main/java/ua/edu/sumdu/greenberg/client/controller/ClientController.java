@@ -118,7 +118,7 @@ public class ClientController {
 	class ClickSend implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if (!clientViewChat.getMessage().equals("")) {
+			if (!clientViewChat.getMessage().isEmpty()) {
 				try {
 					writeInSocket(name, null, null, clientViewChat.getMessage());
 					clientViewChat.clearSelectedUser();
@@ -135,7 +135,7 @@ public class ClientController {
 	class ClickPrivate implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if (!clientViewChat.getMessage().equals("")) {
+			if (!clientViewChat.getMessage().isEmpty()) {
 				if (clientViewChat.selectedUser() && !clientViewChat.getSelectedUser().equals("")) {
 					try {
 						writeInSocket(name, clientViewChat.getSelectedUser(), null, clientViewChat.getMessage());

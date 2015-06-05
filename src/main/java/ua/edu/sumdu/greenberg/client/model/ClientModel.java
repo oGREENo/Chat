@@ -33,6 +33,7 @@ public class ClientModel {
 
     /**
      * This method added ClientController.
+     *
      * @param clientController - ClientController.
      */
     public void addClientModel(ClientController clientController) {
@@ -41,6 +42,7 @@ public class ClientModel {
 
     /**
      * This method checks the entered data.
+     *
      * @return boolean.
      */
     public boolean validData(String login, String url, int port) {
@@ -50,6 +52,7 @@ public class ClientModel {
 
     /**
      * This method checks the entered IP.
+     *
      * @return boolean.
      */
     public boolean validIP(String url) {
@@ -59,29 +62,30 @@ public class ClientModel {
 
     /**
      * This method checks the entered port.
+     *
      * @return boolean.
      */
     public boolean validPort(int port) {
-        return ((port >= 1) && (port <= 65355) && (port != 80))? true : false;
+        return ((port >= 1) && (port <= 65355) && (port != 80)) ? true : false;
     }
 
     /**
      * This method create new XML.
-     * @param nick - nick.
+     *
+     * @param nick   - nick.
      * @param toNick - toNick.
      * @param action - action.
-     * @param text - message.
+     * @param text   - message.
      * @return Document.
      */
     public Document createXML(String nick, String toNick, String action, String text) {
-//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             log.error(e);
         }
-        Document doc=builder.newDocument();
-        Element RootElement=doc.createElement("message");
+        Document doc = builder.newDocument();
+        Element RootElement = doc.createElement("message");
 
         Element NameElementNick = doc.createElement("nick");
         if (nick != null) {
@@ -90,18 +94,21 @@ public class ClientModel {
         RootElement.appendChild(NameElementNick);
 
         Element NameElementToNick = doc.createElement("to_nick");
-        if (toNick != null) NameElementToNick.appendChild(doc.createTextNode(toNick));
-        else NameElementToNick.appendChild(doc.createTextNode(""));
+        if (toNick != null) {
+            NameElementToNick.appendChild(doc.createTextNode(toNick));
+        } else NameElementToNick.appendChild(doc.createTextNode(""));
         RootElement.appendChild(NameElementToNick);
 
         Element NameElementAction = doc.createElement("action");
-        if (action != null) NameElementAction.appendChild(doc.createTextNode(action));
-        else NameElementAction.appendChild(doc.createTextNode(""));
+        if (action != null) {
+            NameElementAction.appendChild(doc.createTextNode(action));
+        } else NameElementAction.appendChild(doc.createTextNode(""));
         RootElement.appendChild(NameElementAction);
 
         Element NameElementText = doc.createElement("text");
-        if (text != null) NameElementText.appendChild(doc.createTextNode(text));
-        else NameElementText.appendChild(doc.createTextNode(""));
+        if (text != null) {
+            NameElementText.appendChild(doc.createTextNode(text));
+        } else NameElementText.appendChild(doc.createTextNode(""));
         RootElement.appendChild(NameElementText);
 
         doc.appendChild(RootElement);
@@ -110,6 +117,7 @@ public class ClientModel {
 
     /**
      * This method read the XML.
+     *
      * @param doc - xml.
      */
     public void readMessage(Document doc) {
@@ -118,7 +126,7 @@ public class ClientModel {
         if (action.equals("GET_USER_LIST")) usersList.add(text);
         if (action.equals("ADDED_USER")) usersList.add(text);
         if (action.equals("REMOVE_USER")) usersList.remove(text);
-        if (action.equals("")) {
+        if (action.isEmpty()) {
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             Date date = new Date();
             chatList.add(dateFormat.format(date) + " " + text);
@@ -129,6 +137,7 @@ public class ClientModel {
 
     /**
      * This method returned array a users.
+     *
      * @return ArrayList.
      */
     public ArrayList getUsersList() {
@@ -137,6 +146,7 @@ public class ClientModel {
 
     /**
      * This method returned array a messages.
+     *
      * @return ArrayList.
      */
     public ArrayList getChatList() {

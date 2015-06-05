@@ -67,14 +67,15 @@ public class ClientViewChat extends JFrame {
      */
     private void createMessageSend(JPanel sendPanel) {
         JLabel textMessage = new JLabel("Your message: ");
-        message = new JTextField(40);
+        message = new JTextField(30);
         sendButton = new JButton("Send");
         privateButton = new JButton("Private");
+        privateButton.setEnabled(false);
 
         sendPanel.add(textMessage, BorderLayout.WEST);
         sendPanel.add(message, BorderLayout.CENTER);
         JPanel panelSendButton = new JPanel();
-        panelSendButton.setLayout(new BoxLayout(panelSendButton, BoxLayout.Y_AXIS));
+        panelSendButton.setLayout(new BoxLayout(panelSendButton, BoxLayout.X_AXIS));
         panelSendButton.add(sendButton);
         panelSendButton.add(privateButton);
         sendPanel.add(panelSendButton, BorderLayout.EAST);
