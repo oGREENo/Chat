@@ -84,6 +84,7 @@ public class ClientViewLogin extends JFrame {
 		panel.add(port, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST,
 				GridBagConstraints.HORIZONTAL, new Insets(5, 0, 0, 0), 0, 0));
 		textPort = new JTextField("12345");
+		textPort.setEnabled(false);
 		panel.add(textPort, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
 				GridBagConstraints.HORIZONTAL, new Insets(10, 5, 0, 0), 0, 0));
 		textPort.addKeyListener(new KeyAdapter() {

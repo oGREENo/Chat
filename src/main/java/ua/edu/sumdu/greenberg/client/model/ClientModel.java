@@ -12,7 +12,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -20,10 +19,6 @@ import java.util.regex.Pattern;
  */
 public class ClientModel {
     private static final Logger log = Logger.getLogger(ClientModel.class);
-    private Pattern pattern;
-    private Pattern pattern2;
-    private Matcher matcher;
-    private Matcher matcher2;
     private static final String IPADDRESS_PATTERN =
             "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
                     "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
@@ -58,11 +53,8 @@ public class ClientModel {
      * @return boolean.
      */
     public boolean validIP(String url) {
-        pattern = Pattern.compile(IPADDRESS_PATTERN);
-        pattern2 = Pattern.compile(LOCALHOST_PATTERN);
-        matcher = pattern.matcher(url);
-        matcher2 = pattern2.matcher(url);
-        return (matcher.matches() || matcher2.matches());
+        return (Pattern.compile(IPADDRESS_PATTERN).matcher(url).matches()
+                || Pattern.compile(LOCALHOST_PATTERN).matcher(url).matches());
     }
 
     /**
@@ -82,9 +74,9 @@ public class ClientModel {
      * @return Document.
      */
     public Document createXML(String nick, String toNick, String action, String text) {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
-            builder = factory.newDocumentBuilder();
+            builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             log.error(e);
         }
@@ -92,8 +84,9 @@ public class ClientModel {
         Element RootElement=doc.createElement("message");
 
         Element NameElementNick = doc.createElement("nick");
-        if (nick != null) NameElementNick.appendChild(doc.createTextNode(nick));
-        else NameElementNick.appendChild(doc.createTextNode(""));
+        if (nick != null) {
+            NameElementNick.appendChild(doc.createTextNode(nick));
+        } else NameElementNick.appendChild(doc.createTextNode(""));
         RootElement.appendChild(NameElementNick);
 
         Element NameElementToNick = doc.createElement("to_nick");

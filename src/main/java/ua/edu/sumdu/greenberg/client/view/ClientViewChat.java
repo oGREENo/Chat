@@ -1,5 +1,8 @@
 package ua.edu.sumdu.greenberg.client.view;
 
+import ua.edu.sumdu.greenberg.client.model.User;
+
+import javax.jws.soap.SOAPBinding;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -19,7 +22,6 @@ public class ClientViewChat extends JFrame {
      * This is the class constructor.
      */
     public ClientViewChat() {
-        super("Instant messenger");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(640, 480);
         this.setMinimumSize(new Dimension(640, 480));
@@ -130,7 +132,7 @@ public class ClientViewChat extends JFrame {
      * This method add user to list.
      * @param usersList - user list.
      */
-    public void addUsersToList(ArrayList usersList) {
+    public void addUsersToList(ArrayList<User> usersList) {
         userList.setListData(usersList.toArray());
     }
 

@@ -30,7 +30,9 @@ public class Main {
      * @param arg - parameter.
      */
     public static void main(String[] arg) {
-        if(arg.length > 0) new Main(arg[0]);
+        if(arg.length > 0) {
+            new Main(arg[0]);
+        }
         else new Main();
     }
 
@@ -39,9 +41,11 @@ public class Main {
      * @param parameter - parameter.
      */
     private void readParameter(String parameter) {
-        if (parameter.equals("server")) new ServerChat();
-        else if (parameter.equals("client")) new ClientChat();
-        else printCloseMessage();
+        if (parameter.equals("server")) {
+            new ServerChat();
+        } else if (parameter.equals("client")) {
+            new ClientChat();
+        } else printCloseMessage();
     }
 
     /**

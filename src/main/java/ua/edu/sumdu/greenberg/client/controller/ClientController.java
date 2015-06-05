@@ -71,6 +71,7 @@ public class ClientController {
 				createConnection();
 				comAddUser(name);
 				clientViewLogin.setVisible(false);
+				clientViewChat.setTitle("Welcome " + clientViewLogin.getName());
 				clientViewChat.setVisible(true);
 				comGetUserList(name);
 			}
@@ -157,9 +158,7 @@ public class ClientController {
 		} catch (IOException e) {
 			log.error(e);
 		}
-		Runnable runnable = new ClientMessageThread(socket, clientModel);
-		Thread thread = new Thread(runnable);
-		thread.start();
+		new Thread(new ClientMessageThread(socket, clientModel)).start();
 		log.info("Connect to URL - " + clientViewLogin.getUrl() + " and PORT - " + clientViewLogin.getPort());
 	}
 
