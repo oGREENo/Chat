@@ -191,6 +191,13 @@ public class ServerModel {
                 } catch (IOException e) {
                     log.error(e);
                 }
+            } else if (entry.getKey().toString().equals(nick)) {
+                st = (ServerThread) entry.getValue();
+                try {
+                    serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + " ==> " + toNick + "] : " + text), st);
+                } catch (IOException e) {
+                    log.error(e);
+                }
             }
         }
     }

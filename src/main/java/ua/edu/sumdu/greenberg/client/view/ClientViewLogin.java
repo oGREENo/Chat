@@ -90,7 +90,7 @@ public class ClientViewLogin extends JFrame {
 		textPort.addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
 				char vChar = e.getKeyChar();
-				if (textPort.getText().length() >= 5 
+				if (textPort.getText().length() >= 5
 						|| !(Character.isDigit(vChar))
 						|| (vChar == KeyEvent.VK_BACK_SPACE)
 						|| (vChar == KeyEvent.VK_DELETE)) {
