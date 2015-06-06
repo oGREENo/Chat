@@ -68,53 +68,84 @@ public class ClientController {
                 name = clientViewLogin.getName();
                 url = clientViewLogin.getUrl();
                 port = clientViewLogin.getPort();
-                createNewUser(name, url, port);
                 createConnection();
-                comAddUser(name);
-                clientViewLogin.setVisible(false);
-                clientViewChat.setTitle("Welcome " + clientViewLogin.getName());
-                clientViewChat.setVisible(true);
-                comGetUserList(name);
-            }
-        }
-
-        /**
-         * This method creates new user.
-         *
-         * @param name - name.
-         * @param url  - url.
-         * @param port - port.
-         */
-        private void createNewUser(String name, String url, int port) {
-            user = new User(name, url, port);
-        }
-
-        /**
-         * This method gives a command to the server.
-         *
-         * @param name - name.
-         */
-        private void comAddUser(String name) {
-            try {
-                writeInSocket(name, null, "ADD_USER", "Hello server");
-            } catch (IOException e) {
-                log.error(e);
-            }
-        }
-
-        /**
-         * This method gives a command to the server.
-         *
-         * @param name - name.
-         */
-        private void comGetUserList(String name) {
-            try {
-                writeInSocket(name, null, "GET_USER_LIST", null);
-            } catch (IOException e) {
-                log.error(e);
+                comCheckLogin(name);
             }
         }
     }
+
+    /**
+     * This method start a chat window.
+     *
+     * @param name - login.
+     */
+    public void openChatFrame(String name) {
+        createConnection();
+        createNewUser(name, url, port);
+        comAddUser(name);
+        clientViewLogin.setVisible(false);
+        clientViewChat.setTitle("Welcome " + name);
+        clientViewChat.setVisible(true);
+        comGetUserList(name);
+    }
+
+    /**
+     * This method launches an informational message.
+     */
+    public void startLoginBusyMessage() {
+        clientViewLogin.loginBusyMessage();
+    }
+
+    /**
+     * This method creates new user.
+     *
+     * @param name - name.
+     * @param url  - url.
+     * @param port - port.
+     */
+    private void createNewUser(String name, String url, int port) {
+        user = new User(name, url, port);
+    }
+
+    /**
+     * This method gives a command to the server.
+     *
+     * @param name - login.
+     */
+    private void comCheckLogin(String name) {
+        try {
+            writeInSocket(name, null, "CHECK_LOGIN", null);
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
+    /**
+     * This method gives a command to the server.
+     *
+     * @param name - name.
+     */
+    private void comAddUser(String name) {
+        try {
+            writeInSocket(name, null, "ADD_USER", "Hello server");
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
+    /**
+     * This method gives a command to the server.
+     *
+     * @param name - name.
+     */
+    private void comGetUserList(String name) {
+        try {
+            writeInSocket(name, null, "GET_USER_LIST", null);
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
 
     /**
      * This class is responsible for sending messages.
@@ -150,7 +181,9 @@ public class ClientController {
                 }
             }
         }
+
     }
+
 
     /**
      * This method create a connection.
@@ -168,6 +201,7 @@ public class ClientController {
 
     /**
      * This method returns name client.
+     *
      * @return name client.
      */
     public String getName() {

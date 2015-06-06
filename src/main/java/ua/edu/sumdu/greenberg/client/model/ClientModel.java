@@ -126,6 +126,11 @@ public class ClientModel {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
         String name = clientController.getName();
+        if (action.equals("CHECK_LOGIN") && text.equals("OK")) {
+            clientController.openChatFrame(nick);
+        } else if (action.equals("CHECK_LOGIN") && text.equals("BUSY")) {
+            clientController.startLoginBusyMessage();
+        }
         if (action.equals("GET_USER_LIST")) {
             usersList.add(text);
         }
@@ -151,7 +156,8 @@ public class ClientModel {
 
     /**
      * This method creates message.
-     * @param text - text message.
+     *
+     * @param text  - text message.
      * @param color - color message.
      */
     private void createMessage(String text, String color) {

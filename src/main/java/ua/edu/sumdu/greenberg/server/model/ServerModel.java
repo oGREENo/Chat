@@ -27,6 +27,7 @@ public class ServerModel {
 
     /**
      * This method added a ServerController.
+     *
      * @param serverController - ServerController
      */
     public void addControllerToModel(ServerController serverController) {
@@ -35,24 +36,28 @@ public class ServerModel {
 
     /**
      * This method adding user and ServerTread to array.
-     * @param user - user.
+     *
+     * @param user         - user.
      * @param serverThread - ServerThread.
      */
     public void addUser(User user, ServerThread serverThread) {
-        userMap.put(user,serverThread);
+        userMap.put(user, serverThread);
     }
 
     /**
      * This method removing user from array.
+     *
      * @param user - user.
      */
-    public void removeUser(User user) {
+    public void removeUser(User user, ServerThread serverThread) {
         log.info("The user has left.");
+        closeSocket(serverThread);
         userMap.remove(user);
     }
 
     /**
      * This method return from array a user name.
+     *
      * @return array.
      */
     public ArrayList getNameUsers() {
@@ -65,7 +70,8 @@ public class ServerModel {
 
     /**
      * This method read a MXL.
-     * @param doc - Document.
+     *
+     * @param doc          - Document.
      * @param serverThread - ServerThread.
      */
     public void readMessage(Document doc, ServerThread serverThread) {
@@ -74,16 +80,46 @@ public class ServerModel {
         String toNick = doc.getElementsByTagName("toNick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
 
+        if (action.equals("CHECK_LOGIN")) actionCheckLogin(nick, serverThread);
         if (action.equals("ADD_USER")) actionAddUser(nick, serverThread);
-        if (action.equals("REMOVE_USER")) actionRemoveUser(nick, toNick);
+        if (action.equals("REMOVE_USER")) actionRemoveUser(nick, toNick, serverThread);
         if (action.equals("GET_USER_LIST")) actionGetUserList(nick, toNick, action);
         if (action.isEmpty() && toNick.isEmpty()) actionSendMessage(nick, toNick, action, text);
         if (action.isEmpty() && !toNick.isEmpty()) actionSendMessagePrivate(nick, toNick, action, text);
     }
 
     /**
+     * This method receives a command to check login.
+     *
+     * @param nick         - login.
+     * @param serverThread - ServerThread.
+     */
+    private void actionCheckLogin(String nick, ServerThread serverThread) {
+        try {
+            serverController.writeInSocket(createXML(nick, null, "CHECK_LOGIN", (checkLogin(nick)) ? "OK" : "BUSY"), serverThread);
+            closeSocket(serverThread);
+        } catch (IOException e) {
+            log.error(e);
+        }
+    }
+
+    /**
+     * @param nick - login
+     * @return true or false.
+     */
+    private boolean checkLogin(String nick) {
+        for (Map.Entry entry : userMap.entrySet()) {
+            if (entry.getKey().toString().equals(nick)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * This method receives a command to add a user.
-     * @param nick - nick.
+     *
+     * @param nick         - nick.
      * @param serverThread - Server Thread.
      */
     private void actionAddUser(String nick, ServerThread serverThread) {
@@ -93,11 +129,12 @@ public class ServerModel {
 
     /**
      * This method receives a command to remove a user.
-     * @param nick - nick.
+     *
+     * @param nick   - nick.
      * @param toNick - toNick.
      */
-    private void actionRemoveUser(String nick, String toNick) {
-        commandRemoveUser(nick);
+    private void actionRemoveUser(String nick, String toNick, ServerThread serverThread) {
+        commandRemoveUser(nick, serverThread);
         ServerThread st;
         arrUsers.clear();
         arrUsers = getNameUsers();
@@ -116,16 +153,18 @@ public class ServerModel {
 
     /**
      * This method gives a command to delete the user.
+     *
      * @param nick - nick.
      */
-    private void commandRemoveUser(String nick) {
+    private void commandRemoveUser(String nick, ServerThread serverThread) {
         user = new User(nick);
-        removeUser(user);
+        removeUser(user, serverThread);
     }
 
     /**
      * This method receives a command to get a user list.
-     * @param nick - nick.
+     *
+     * @param nick   - nick.
      * @param toNick - toNick.
      * @param action - action.
      */
@@ -157,10 +196,11 @@ public class ServerModel {
 
     /**
      * This method receives a command to send private message a user.
-     * @param nick - nick.
+     *
+     * @param nick   - nick.
      * @param toNick - toNick.
      * @param action - action.
-     * @param text - text.
+     * @param text   - text.
      */
     private void actionSendMessage(String nick, String toNick, String action, String text) {
         ServerThread st;
@@ -176,10 +216,11 @@ public class ServerModel {
 
     /**
      * This method receives a command to send  message all users.
-     * @param nick - nick.
+     *
+     * @param nick   - nick.
      * @param toNick - toNick.
      * @param action - action.
-     * @param text - text.
+     * @param text   - text.
      */
     private void actionSendMessagePrivate(String nick, String toNick, String action, String text) {
         ServerThread st;
@@ -204,10 +245,11 @@ public class ServerModel {
 
     /**
      * This method is created a XML.
-     * @param nick - nick.
+     *
+     * @param nick   - nick.
      * @param toNick - toNick.
      * @param action - action.
-     * @param text - text.
+     * @param text   - text.
      * @return Document.
      */
     public Document createXML(String nick, String toNick, String action, String text) {
@@ -217,8 +259,8 @@ public class ServerModel {
         } catch (ParserConfigurationException e) {
             log.error(e);
         }
-        Document doc=builder.newDocument();
-        Element rootElement=doc.createElement("message");
+        Document doc = builder.newDocument();
+        Element rootElement = doc.createElement("message");
 
         Element nameElementNick = doc.createElement("nick");
         if (nick != null) nameElementNick.appendChild(doc.createTextNode(nick));
@@ -242,5 +284,20 @@ public class ServerModel {
 
         doc.appendChild(rootElement);
         return doc;
+    }
+
+    /**
+     * This method correctly closes Socket.
+     *
+     * @param serverThread - ServerThread.
+     */
+    private void closeSocket(ServerThread serverThread) {
+        try {
+            serverThread.getSocket().shutdownInput();
+            serverThread.getSocket().shutdownOutput();
+            serverThread.getSocket().close();
+        } catch (IOException e) {
+            log.error(e);
+        }
     }
 }
