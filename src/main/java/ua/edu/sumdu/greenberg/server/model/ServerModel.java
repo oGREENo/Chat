@@ -77,8 +77,8 @@ public class ServerModel {
         if (action.equals("ADD_USER")) actionAddUser(nick, serverThread);
         if (action.equals("REMOVE_USER")) actionRemoveUser(nick, toNick);
         if (action.equals("GET_USER_LIST")) actionGetUserList(nick, toNick, action);
-        if (action.equals("") && toNick.equals("")) actionSendPrivateMessage(nick, toNick, action, text);
-        if (action.equals("") && !toNick.equals("")) actionSendMessage(nick, toNick, action, text);
+        if (action.equals("") && toNick.isEmpty()) actionSendMessage(nick, toNick, action, text);
+        if (action.equals("") && !toNick.isEmpty()) actionSendMessagePrivate(nick, toNick, action, text);
     }
 
     /**
@@ -162,7 +162,7 @@ public class ServerModel {
      * @param action - action.
      * @param text - text.
      */
-    private void actionSendPrivateMessage(String nick, String toNick, String action, String text) {
+    private void actionSendMessage(String nick, String toNick, String action, String text) {
         ServerThread st;
         for (Map.Entry entry : userMap.entrySet()) {
             st = (ServerThread) entry.getValue();
@@ -181,13 +181,13 @@ public class ServerModel {
      * @param action - action.
      * @param text - text.
      */
-    private void actionSendMessage(String nick, String toNick, String action, String text) {
+    private void actionSendMessagePrivate(String nick, String toNick, String action, String text) {
         ServerThread st;
         for (Map.Entry entry : userMap.entrySet()) {
             if (entry.getKey().toString().equals(toNick)) {
                 st = (ServerThread) entry.getValue();
                 try {
-                    serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
+                    serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + " ==> " + toNick + "] : " + text), st);
                 } catch (IOException e) {
                     log.error(e);
                 }

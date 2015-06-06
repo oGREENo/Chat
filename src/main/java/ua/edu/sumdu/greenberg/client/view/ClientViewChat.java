@@ -70,7 +70,7 @@ public class ClientViewChat extends JFrame {
         message = new JTextField(30);
         sendButton = new JButton("Send");
         privateButton = new JButton("Private");
-        privateButton.setEnabled(false);
+//        privateButton.setEnabled(false);
 
         sendPanel.add(textMessage, BorderLayout.WEST);
         sendPanel.add(message, BorderLayout.CENTER);

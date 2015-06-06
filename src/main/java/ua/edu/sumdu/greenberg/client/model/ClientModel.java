@@ -123,9 +123,15 @@ public class ClientModel {
     public void readMessage(Document doc) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        if (action.equals("GET_USER_LIST")) usersList.add(text);
-        if (action.equals("ADDED_USER")) usersList.add(text);
-        if (action.equals("REMOVE_USER")) usersList.remove(text);
+        if (action.equals("GET_USER_LIST")) {
+            usersList.add(text);
+        }
+        if (action.equals("ADDED_USER")) {
+            usersList.add(text);
+        }
+        if (action.equals("REMOVE_USER")) {
+            usersList.remove(text);
+        }
         if (action.isEmpty()) {
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
             Date date = new Date();
