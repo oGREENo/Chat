@@ -167,6 +167,14 @@ public class ClientController {
     }
 
     /**
+     * This method returns name client.
+     * @return name client.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
      * This method writes in socket a message.
      *
      * @param nick    - name

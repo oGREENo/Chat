@@ -71,14 +71,14 @@ public class ServerModel {
     public void readMessage(Document doc, ServerThread serverThread) {
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
-        String toNick = doc.getElementsByTagName("to_nick").item(0).getTextContent();
+        String toNick = doc.getElementsByTagName("toNick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
 
         if (action.equals("ADD_USER")) actionAddUser(nick, serverThread);
         if (action.equals("REMOVE_USER")) actionRemoveUser(nick, toNick);
         if (action.equals("GET_USER_LIST")) actionGetUserList(nick, toNick, action);
-        if (action.equals("") && toNick.isEmpty()) actionSendMessage(nick, toNick, action, text);
-        if (action.equals("") && !toNick.isEmpty()) actionSendMessagePrivate(nick, toNick, action, text);
+        if (action.isEmpty() && toNick.isEmpty()) actionSendMessage(nick, toNick, action, text);
+        if (action.isEmpty() && !toNick.isEmpty()) actionSendMessagePrivate(nick, toNick, action, text);
     }
 
     /**
@@ -225,7 +225,7 @@ public class ServerModel {
         else nameElementNick.appendChild(doc.createTextNode(""));
         rootElement.appendChild(nameElementNick);
 
-        Element nameElementToNick = doc.createElement("to_nick");
+        Element nameElementToNick = doc.createElement("toNick");
         if (toNick != null) nameElementToNick.appendChild(doc.createTextNode(toNick));
         else nameElementToNick.appendChild(doc.createTextNode(""));
         rootElement.appendChild(nameElementToNick);

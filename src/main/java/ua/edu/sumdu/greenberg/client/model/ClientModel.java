@@ -93,7 +93,7 @@ public class ClientModel {
         } else NameElementNick.appendChild(doc.createTextNode(""));
         RootElement.appendChild(NameElementNick);
 
-        Element NameElementToNick = doc.createElement("to_nick");
+        Element NameElementToNick = doc.createElement("toNick");
         if (toNick != null) {
             NameElementToNick.appendChild(doc.createTextNode(toNick));
         } else NameElementToNick.appendChild(doc.createTextNode(""));
@@ -121,8 +121,11 @@ public class ClientModel {
      * @param doc - xml.
      */
     public void readMessage(Document doc) {
+        String nick = doc.getElementsByTagName("nick").item(0).getTextContent();
+        String toNick = doc.getElementsByTagName("toNick").item(0).getTextContent();
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
+        String name = clientController.getName();
         if (action.equals("GET_USER_LIST")) {
             usersList.add(text);
         }
@@ -133,12 +136,29 @@ public class ClientModel {
             usersList.remove(text);
         }
         if (action.isEmpty()) {
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-            Date date = new Date();
-            chatList.add(dateFormat.format(date) + " " + text);
-            clientController.addMessageToChat();
+            if (toNick.isEmpty()) {
+                if (nick.equals(name)) {
+                    createMessage(text, "blue");
+                } else {
+                    createMessage(text, "black");
+                }
+            } else {
+                createMessage(text, "green");
+            }
         }
         clientController.addUserListToModel();
+    }
+
+    /**
+     * This method creates message.
+     * @param text - text message.
+     * @param color - color message.
+     */
+    private void createMessage(String text, String color) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+        chatList.add("<html><font color=" + color + ">" + dateFormat.format(date) + " " + text + "</font></html>");
+        clientController.addMessageToChat();
     }
 
     /**
