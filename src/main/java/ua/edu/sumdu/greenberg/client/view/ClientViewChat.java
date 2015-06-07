@@ -3,6 +3,8 @@ package ua.edu.sumdu.greenberg.client.view;
 import ua.edu.sumdu.greenberg.client.model.User;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -58,6 +60,12 @@ public class ClientViewChat extends JFrame {
         userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
         JLabel uList = new JLabel("List of users : ");
         userList = new JList();
+        userList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                privateButton.setEnabled(true);
+            }
+        });
         JScrollPane scrollUser = new JScrollPane(userList);
         userPanel.add(uList);
         userPanel.add(scrollUser);
@@ -74,7 +82,7 @@ public class ClientViewChat extends JFrame {
         message = new JTextField(30);
         sendButton = new JButton("Send");
         privateButton = new JButton("Private");
-//        privateButton.setEnabled(false);
+        privateButton.setEnabled(false);
 
         sendPanel.add(textMessage, BorderLayout.WEST);
         sendPanel.add(message, BorderLayout.CENTER);
@@ -135,7 +143,9 @@ public class ClientViewChat extends JFrame {
      */
     public void clearSelectedUser() {
         listMessage.clearSelection();
+        userList.clearSelection();
         message.setText("");
+        privateButton.setEnabled(false);
     }
 
     /**
