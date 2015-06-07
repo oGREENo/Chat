@@ -41,6 +41,7 @@ public class ClientController {
         this.clientModel = clientModel;
         clientModel.addClientModel(this);
         this.clientViewLogin = clientViewLogin;
+        clientViewLogin.setVisible(true);
         this.clientViewChat = clientViewChat;
         this.clientViewLogin.clickLogin(new ClickLogin());
         this.clientViewChat.clickSend(new ClickSend());
