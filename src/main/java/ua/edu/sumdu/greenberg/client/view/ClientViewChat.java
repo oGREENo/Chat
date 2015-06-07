@@ -2,7 +2,6 @@ package ua.edu.sumdu.greenberg.client.view;
 
 import ua.edu.sumdu.greenberg.client.model.User;
 
-import javax.jws.soap.SOAPBinding;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -38,9 +37,10 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method adds elements.
+     *
      * @param panel - JPanel.
      */
-	private void messageList(JPanel panel) {
+    private void messageList(JPanel panel) {
         listMessage = new JList();
         JScrollPane scroolChat = new JScrollPane(listMessage);
         panel.add(scroolChat, BorderLayout.CENTER);
@@ -48,10 +48,13 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method adds elements.
+     *
      * @param panel - JPanel.
      */
     private void userList(JPanel panel) {
         JPanel userPanel = new JPanel();
+        userPanel.setMinimumSize(new Dimension(100, 100));
+        userPanel.setPreferredSize(new Dimension(100, 500));
         userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
         JLabel uList = new JLabel("List of users : ");
         userList = new JList();
@@ -63,6 +66,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method adds elements.
+     *
      * @param sendPanel - JPanel.
      */
     private void createMessageSend(JPanel sendPanel) {
@@ -83,6 +87,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method returns true if the user has selected.
+     *
      * @return true or false.
      */
     public boolean selectedUser() {
@@ -91,6 +96,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method gets the name of the selected user.
+     *
      * @return name user.
      */
     public String getSelectedUser() {
@@ -99,6 +105,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method gets a message.
+     *
      * @return name.
      */
     public String getMessage() {
@@ -107,6 +114,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This actionListener for button with name a "Send".
+     *
      * @param listener this listener.
      */
     public void clickSend(ActionListener listener) {
@@ -115,6 +123,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This actionListener for button with name a "Private".
+     *
      * @param listener this listener.
      */
     public void clickPrivate(ActionListener listener) {
@@ -131,6 +140,7 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method add user to list.
+     *
      * @param usersList - user list.
      */
     public void addUsersToList(ArrayList<User> usersList) {
@@ -139,9 +149,10 @@ public class ClientViewChat extends JFrame {
 
     /**
      * This method add messages to list.
+     *
      * @param chatList - array message.
      */
-    public void addMessageToChat(ArrayList chatList) {
+    public void addMessageToChat(ArrayList<String> chatList) {
         listMessage.setListData(chatList.toArray());
     }
 }
