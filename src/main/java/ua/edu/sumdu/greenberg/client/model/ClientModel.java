@@ -29,7 +29,7 @@ public class ClientModel {
     private DocumentBuilder builder;
     private ClientController clientController;
     private ArrayList usersList = new ArrayList<String>();
-    private ArrayList chatList = new ArrayList<String>();
+    private ArrayList<String> chatList = new ArrayList<String>();
 
     /**
      * This method added ClientController.
@@ -181,7 +181,7 @@ public class ClientModel {
      *
      * @return ArrayList.
      */
-    public ArrayList getChatList() {
+    public ArrayList<String> getChatList() {
         return chatList;
     }
 }

@@ -63,6 +63,12 @@ public class ClientViewLogin extends JFrame {
                     e.consume();
                 }
             }
+            public void keyPressed(KeyEvent e) {
+                char vChar = e.getKeyChar();
+                if (vChar == KeyEvent.VK_ENTER) {
+                    jLoginButton.doClick();
+                }
+            }
         });
         JLabel url = new JLabel("URL:");
         panel.add(url, new GridBagConstraints(0, 1, 1, 1, 0, 0, GridBagConstraints.EAST,
@@ -76,6 +82,12 @@ public class ClientViewLogin extends JFrame {
                     e.consume();
                 }
             }
+            public void keyPressed(KeyEvent e) {
+                char vChar = e.getKeyChar();
+                if (vChar == KeyEvent.VK_ENTER) {
+                    jLoginButton.doClick();
+                }
+            }
         });
         JLabel port = new JLabel("Port:");
         panel.add(port, new GridBagConstraints(0, 2, 1, 1, 0, 0, GridBagConstraints.EAST,
@@ -84,17 +96,7 @@ public class ClientViewLogin extends JFrame {
         textPort.setEnabled(false);
         panel.add(textPort, new GridBagConstraints(1, 2, 1, 1, 0, 0, GridBagConstraints.CENTER,
                 GridBagConstraints.HORIZONTAL, new Insets(10, 5, 0, 0), 0, 0));
-        textPort.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char vChar = e.getKeyChar();
-                if (textPort.getText().length() >= 5
-                        || !(Character.isDigit(vChar))
-                        || (vChar == KeyEvent.VK_BACK_SPACE)
-                        || (vChar == KeyEvent.VK_DELETE)) {
-                    e.consume();
-                }
-            }
-        });
+
         jLoginButton = new JButton("Login");
         panel.add(jLoginButton, new GridBagConstraints(0, 3, 1, 1, 0, 0, GridBagConstraints.EAST,
                 GridBagConstraints.HORIZONTAL, new Insets(10, 0, 0, 0), 0, 0));
