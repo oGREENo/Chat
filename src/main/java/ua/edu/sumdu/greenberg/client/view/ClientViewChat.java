@@ -7,6 +7,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -80,6 +82,14 @@ public class ClientViewChat extends JFrame {
     private void createMessageSend(JPanel sendPanel) {
         JLabel textMessage = new JLabel("Your message: ");
         message = new JTextField(30);
+        message.addKeyListener(new KeyAdapter() {
+            public void keyPressed(KeyEvent e) {
+                char vChar = e.getKeyChar();
+                if (vChar == KeyEvent.VK_ENTER) {
+                    sendButton.doClick();
+                }
+            }
+        });
         sendButton = new JButton("Send");
         privateButton = new JButton("Private");
         privateButton.setEnabled(false);
