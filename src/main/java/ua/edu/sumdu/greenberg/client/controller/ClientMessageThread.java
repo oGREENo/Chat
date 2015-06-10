@@ -46,7 +46,6 @@ public class ClientMessageThread implements Runnable {
 				is.setCharacterStream(new StringReader(message));
 				Document doc = db.parse(is);
 				clientModel.readMessage(doc);
-				message = null;
 			}
 		} catch (ParserConfigurationException e) {
 			log.error(e);

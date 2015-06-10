@@ -24,9 +24,6 @@ public class ClientController {
     private ClientViewChat clientViewChat;
     private ClientModel clientModel;
     private User user;
-    private String name;
-    private String url;
-    private int port;
     private Socket socket;
 
     /**
@@ -49,7 +46,7 @@ public class ClientController {
         this.clientViewChat.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 try {
-                    writeInSocket(name, null, "REMOVE_USER", "Bye");
+                    writeInSocket(user.getName(), null, "REMOVE_USER", "Bye");
                 } catch (IOException e1) {
                     log.error(e1);
                 }
@@ -66,11 +63,8 @@ public class ClientController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (clientModel.validData(clientViewLogin.getName(), clientViewLogin.getUrl(), clientViewLogin.getPort())) {
-                name = clientViewLogin.getName();
-                url = clientViewLogin.getUrl();
-                port = clientViewLogin.getPort();
                 createConnection();
-                comCheckLogin(name);
+                comCheckLogin(clientViewLogin.getName());
             }
         }
     }
@@ -82,7 +76,7 @@ public class ClientController {
      */
     public void openChatFrame(String name) {
         createConnection();
-        createNewUser(name, url, port);
+        createNewUser(name, clientViewLogin.getUrl(), clientViewLogin.getPort());
         comAddUser(name);
         clientViewLogin.setVisible(false);
         clientViewChat.setTitle("Welcome " + name);
@@ -156,7 +150,7 @@ public class ClientController {
         public void actionPerformed(ActionEvent arg0) {
             if (!clientViewChat.getMessage().isEmpty()) {
                 try {
-                    writeInSocket(name, null, null, clientViewChat.getMessage());
+                    writeInSocket(user.getName(), null, null, clientViewChat.getMessage());
                     clientViewChat.clearSelectedUser();
                 } catch (IOException e) {
                     log.error(e);
@@ -174,7 +168,7 @@ public class ClientController {
             if (!clientViewChat.getMessage().isEmpty()) {
                 if (clientViewChat.selectedUser() && !clientViewChat.getSelectedUser().isEmpty()) {
                     try {
-                        writeInSocket(name, clientViewChat.getSelectedUser(), null, clientViewChat.getMessage());
+                        writeInSocket(user.getName(), clientViewChat.getSelectedUser(), null, clientViewChat.getMessage());
                         clientViewChat.clearSelectedUser();
                     } catch (IOException e) {
                         log.error(e);
@@ -190,7 +184,7 @@ public class ClientController {
      * This method create a connection.
      */
     public void createConnection() {
-        log.info("ClientUser Name - " + name);
+        log.info("ClientUser Name - " + clientViewLogin.getName());
         try {
             socket = new Socket(clientViewLogin.getUrl(), clientViewLogin.getPort());
         } catch (IOException e) {
@@ -206,7 +200,7 @@ public class ClientController {
      * @return name client.
      */
     public String getName() {
-        return name;
+        return user.getName();
     }
 
     /**

@@ -125,7 +125,6 @@ public class ClientModel {
         String toNick = doc.getElementsByTagName("toNick").item(0).getTextContent();
         String action = doc.getElementsByTagName("action").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
-        String name = clientController.getName();
         if (action.equals("CHECK_LOGIN") && text.equals("OK")) {
             clientController.openChatFrame(nick);
         } else if (action.equals("CHECK_LOGIN") && text.equals("BUSY")) {
@@ -142,7 +141,7 @@ public class ClientModel {
         }
         if (action.isEmpty()) {
             if (toNick.isEmpty()) {
-                if (nick.equals(name)) {
+                if (nick.equals(clientController.getName())) {
                     createMessage(text, "blue");
                 } else {
                     createMessage(text, "black");
