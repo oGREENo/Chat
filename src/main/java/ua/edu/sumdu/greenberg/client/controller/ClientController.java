@@ -215,10 +215,8 @@ public class ClientController {
     public void writeInSocket(String nick, String to_nick, String action, String text) throws IOException {
         Document doc = clientModel.createXML(nick, to_nick, action, text);
         try {
-            Transformer t = TransformerFactory.newInstance().newTransformer();
-            Source source = new DOMSource(doc);
-            Result output = new StreamResult(socket.getOutputStream());
-            t.transform(source, output);
+            TransformerFactory.newInstance().newTransformer().transform(new DOMSource(doc),
+                    new StreamResult(socket.getOutputStream()));
             socket.getOutputStream().write('\n');
         } catch (TransformerException e) {
             log.error(e);

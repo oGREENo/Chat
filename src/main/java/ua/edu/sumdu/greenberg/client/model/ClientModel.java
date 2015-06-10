@@ -28,7 +28,7 @@ public class ClientModel {
             "localhost";
     private DocumentBuilder builder;
     private ClientController clientController;
-    private ArrayList usersList = new ArrayList<String>();
+    private ArrayList<String> usersList = new ArrayList<String>();
     private ArrayList<String> chatList = new ArrayList<String>();
 
     /**
@@ -171,7 +171,7 @@ public class ClientModel {
      *
      * @return ArrayList.
      */
-    public ArrayList getUsersList() {
+    public ArrayList<String> getUsersList() {
         return usersList;
     }
 

@@ -36,12 +36,12 @@ public class ClientMessageThread implements Runnable {
 	 * This method run thread.
 	 */
 	public void run() {
-		DocumentBuilder db = null;
+		DocumentBuilder db;
 		try {
 			db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			InputSource is = new InputSource();
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			String message = null;
+			String message;
 			while ((message = bufferedReader.readLine()) != null) {
 				is.setCharacterStream(new StringReader(message));
 				Document doc = db.parse(is);

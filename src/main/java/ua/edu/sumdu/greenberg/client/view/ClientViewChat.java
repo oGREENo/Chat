@@ -163,7 +163,7 @@ public class ClientViewChat extends JFrame {
      *
      * @param usersList - user list.
      */
-    public void addUsersToList(ArrayList<User> usersList) {
+    public void addUsersToList(ArrayList<String> usersList) {
         userList.setListData(usersList.toArray());
     }
 
