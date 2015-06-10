@@ -160,9 +160,8 @@ public class ClientModel {
      * @param color - color message.
      */
     private void createMessage(String text, String color) {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-        Date date = new Date();
-        chatList.add("<html><font color=" + color + ">" + dateFormat.format(date) + " " + text + "</font></html>");
+        chatList.add("<html><font color=" + color + ">" +
+                new SimpleDateFormat("HH:mm:ss").format(new Date()) + " " + text + "</font></html>");
         clientController.addMessageToChat();
     }
 
