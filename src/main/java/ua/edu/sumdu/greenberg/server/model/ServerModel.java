@@ -23,7 +23,7 @@ public class ServerModel {
     private User user;
     private DocumentBuilder builder;
     private ServerController serverController;
-    private ArrayList arrUsers = new ArrayList<String>();
+    private ArrayList<String> arrUsers = new ArrayList<String>();
 
     /**
      * This method added a ServerController.
@@ -60,10 +60,10 @@ public class ServerModel {
      *
      * @return array.
      */
-    public ArrayList getNameUsers() {
-        ArrayList users = new ArrayList<String>();
+    public ArrayList<String> getNameUsers() {
+        ArrayList<String> users = new ArrayList<String>();
         for (Map.Entry entry : userMap.entrySet()) {
-            users.add(entry.getKey());
+            users.add(entry.getKey().toString());
         }
         return users;
     }
@@ -80,12 +80,18 @@ public class ServerModel {
         String toNick = doc.getElementsByTagName("toNick").item(0).getTextContent();
         String text = doc.getElementsByTagName("text").item(0).getTextContent();
 
-        if (action.equals("CHECK_LOGIN")) actionCheckLogin(nick, serverThread);
-        if (action.equals("ADD_USER")) actionAddUser(nick, serverThread);
-        if (action.equals("REMOVE_USER")) actionRemoveUser(nick, toNick, serverThread);
-        if (action.equals("GET_USER_LIST")) actionGetUserList(nick, toNick, action);
-        if (action.isEmpty() && toNick.isEmpty()) actionSendMessage(nick, toNick, action, text);
-        if (action.isEmpty() && !toNick.isEmpty()) actionSendMessagePrivate(nick, toNick, action, text);
+        if (action.equals("CHECK_LOGIN"))
+            actionCheckLogin(nick, serverThread);
+        if (action.equals("ADD_USER"))
+            actionAddUser(nick, serverThread);
+        if (action.equals("REMOVE_USER"))
+            actionRemoveUser(nick, toNick, serverThread);
+        if (action.equals("GET_USER_LIST"))
+            actionGetUserList(nick, toNick, action);
+        if (action.isEmpty() && toNick.isEmpty())
+            actionSendMessage(nick, toNick, action, text);
+        if (action.isEmpty() && !toNick.isEmpty())
+            actionSendMessagePrivate(nick, toNick, action, text);
     }
 
     /**
@@ -140,8 +146,7 @@ public class ServerModel {
         arrUsers = getNameUsers();
         for (Map.Entry entry : userMap.entrySet()) {
             st = (ServerThread) entry.getValue();
-            for (int i = 0; i < arrUsers.size(); i++) {
-                String name = arrUsers.get(i).toString();
+            for (String name : arrUsers) {
                 try {
                     serverController.writeInSocket(createXML(name, toNick, "REMOVE_USER", nick), st);
                 } catch (IOException e) {
@@ -175,8 +180,7 @@ public class ServerModel {
         for (Map.Entry entry : userMap.entrySet()) {
             if (entry.getKey().toString().equals(nick)) {
                 st = (ServerThread) entry.getValue();
-                for (int i = 0; i < arrUsers.size(); i++) {
-                    String name = arrUsers.get(i).toString();
+                for (String name : arrUsers) {
                     try {
                         serverController.writeInSocket(createXML(nick, toNick, action, name), st);
                     } catch (IOException e) {
