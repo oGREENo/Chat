@@ -40,9 +40,8 @@ public class ServerController {
      */
     public void createServerSocket() {
         try {
-            ServerSocket serverSocket = new ServerSocket(PORT);
             serverView.consoleMessage("Server UP $ ready connection.");
-            waitingClients(serverSocket);
+            waitingClients(new ServerSocket(PORT));
         } catch (IOException e) {
             log.error(e);
         }
@@ -74,10 +73,8 @@ public class ServerController {
      */
     public void writeInSocket(Document doc, ServerThread st) throws IOException {
         try {
-            Transformer t = TransformerFactory.newInstance().newTransformer();
-            Source source = new DOMSource(doc);
-            Result output = new StreamResult(st.getSocket().getOutputStream());
-            t.transform(source, output);
+            TransformerFactory.newInstance().newTransformer().transform(new DOMSource(doc),
+                    new StreamResult(st.getSocket().getOutputStream()));
             st.getSocket().getOutputStream().write('\n');
         } catch (TransformerException e) {
             log.error(e);
