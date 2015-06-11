@@ -8,7 +8,6 @@ import ua.edu.sumdu.greenberg.client.controller.ClientController;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -138,6 +137,9 @@ public class ClientModel {
         }
         if (action.equals("REMOVE_USER")) {
             usersList.remove(text);
+        }
+        if (action.equals("WELCOME") || action.equals("BYE")) {
+            createMessage(text, "red");
         }
         if (action.isEmpty()) {
             if (toNick.isEmpty()) {

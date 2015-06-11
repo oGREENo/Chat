@@ -84,12 +84,16 @@ public class ServerModel {
             actionCheckLogin(nick, serverThread);
         if (action.equals("ADD_USER"))
             actionAddUser(nick, serverThread);
-        if (action.equals("REMOVE_USER"))
+        if (action.equals("REMOVE_USER")) {
             actionRemoveUser(nick, toNick, serverThread);
-        if (action.equals("GET_USER_LIST"))
+            actionSendMessage(nick, null, "BYE", nick + " exits from a chat...");
+        }
+        if (action.equals("GET_USER_LIST")) {
             actionGetUserList(nick, toNick, action);
+            actionSendMessage(nick, null, "WELCOME", nick + " enters a chat...");
+        }
         if (action.isEmpty() && toNick.isEmpty())
-            actionSendMessage(nick, toNick, action, text);
+            actionSendMessage(nick, toNick, action, "[" + nick + "] : " + text);
         if (action.isEmpty() && !toNick.isEmpty())
             actionSendMessagePrivate(nick, toNick, action, text);
     }
@@ -211,7 +215,7 @@ public class ServerModel {
         for (Map.Entry entry : userMap.entrySet()) {
             st = (ServerThread) entry.getValue();
             try {
-                serverController.writeInSocket(createXML(nick, toNick, action, "[" + nick + "] : " + text), st);
+                serverController.writeInSocket(createXML(nick, toNick, action, text), st);
             } catch (IOException e) {
                 log.error(e);
             }

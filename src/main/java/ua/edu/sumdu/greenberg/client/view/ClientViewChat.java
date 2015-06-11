@@ -1,6 +1,5 @@
 package ua.edu.sumdu.greenberg.client.view;
 
-import ua.edu.sumdu.greenberg.client.model.User;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
