@@ -29,6 +29,7 @@ public class ClientModel {
     private ClientController clientController;
     private ArrayList<String> usersList = new ArrayList<String>();
     private ArrayList<String> chatList = new ArrayList<String>();
+    private ArrayList<String> arrChat = new ArrayList<String>();
 
     /**
      * This method added ClientController.
@@ -182,6 +183,10 @@ public class ClientModel {
      * @return ArrayList.
      */
     public ArrayList<String> getChatList() {
-        return chatList;
+        arrChat.clear();
+        for (int i = chatList.size() - 1; i >= 0; i--) {
+            arrChat.add(chatList.get(i));
+        }
+        return arrChat;
     }
 }

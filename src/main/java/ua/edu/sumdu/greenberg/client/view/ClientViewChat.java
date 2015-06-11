@@ -45,8 +45,8 @@ public class ClientViewChat extends JFrame {
      */
     private void messageList(JPanel panel) {
         listMessage = new JList();
-        JScrollPane scroolChat = new JScrollPane(listMessage);
-        panel.add(scroolChat, BorderLayout.CENTER);
+        JScrollPane scrollPane = new JScrollPane(listMessage);
+        panel.add(scrollPane, BorderLayout.CENTER);
     }
 
     /**
