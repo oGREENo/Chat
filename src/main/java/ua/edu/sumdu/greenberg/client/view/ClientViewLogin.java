@@ -148,4 +148,8 @@ public class ClientViewLogin extends JFrame {
     public void loginBusyMessage() {
         JOptionPane.showMessageDialog(null, "This login is already in use.");
     }
+
+    public void incorrectConnection() {
+        JOptionPane.showMessageDialog(null, "Your IP address is incorrect.");
+    }
 }

@@ -63,8 +63,11 @@ public class ClientController {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             if (clientModel.validData(clientViewLogin.getName(), clientViewLogin.getUrl(), clientViewLogin.getPort())) {
-                createConnection();
-                comCheckLogin(clientViewLogin.getName());
+                if (createConnection()) {
+                    comCheckLogin(clientViewLogin.getName());
+                } else {
+                    clientViewLogin.incorrectConnection();
+                }
             }
         }
     }
@@ -183,15 +186,20 @@ public class ClientController {
     /**
      * This method create a connection.
      */
-    public void createConnection() {
+    public boolean createConnection() {
+        boolean connection = false;
         log.info("ClientUser Name - " + clientViewLogin.getName());
         try {
             socket = new Socket(clientViewLogin.getUrl(), clientViewLogin.getPort());
+            connection = true;
         } catch (IOException e) {
             log.error(e);
         }
-        new Thread(new ClientMessageThread(socket, clientModel)).start();
-        log.info("Connect to URL - " + clientViewLogin.getUrl() + " and PORT - " + clientViewLogin.getPort());
+        if (connection) {
+            new Thread(new ClientMessageThread(socket, clientModel)).start();
+            log.info("Connect to URL - " + clientViewLogin.getUrl() + " and PORT - " + clientViewLogin.getPort());
+        }
+        return connection;
     }
 
     /**
