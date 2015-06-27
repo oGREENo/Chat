@@ -1,5 +1,6 @@
 package ua.edu.sumdu.greenberg.client.model;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -163,9 +164,113 @@ public class ClientModel {
      * @param color - color message.
      */
     private void createMessage(String text, String color) {
-        chatList.add("<html><font color=" + color + ">" +
-                new SimpleDateFormat("HH:mm:ss").format(new Date()) + " " + text + "</font></html>");
+        StringBuilder str = new StringBuilder("<html><font color=");
+        str.append(color);
+        str.append(">");
+        str.append(new SimpleDateFormat("HH:mm:ss").format(new Date()));
+        str.append(" ");
+        if (findSmile(text)) {
+            while (findSmile(text)) {
+                int first = 0;
+                int second = text.indexOf(readSmile(text));
+                String addText = text.substring(first, second);
+                str.append(addText);
+                str.append("<img src = \"");
+                str.append(getAddressSmile(readSmile(text)));
+                str.append("\" width = \"20\" height = \"20\">");
+                String newText = text.substring(second + 3);
+                text = newText;
+            }
+            str.append(text);
+        } else {
+            str.append(text);
+        }
+        str.append("</font></html>");
+        chatList.add(str.toString());
         clientController.addMessageToChat();
+    }
+
+    /**
+     * This method finds smile in text.
+     *
+     * @param text - text message.
+     * @return true or false.
+     */
+    private boolean findSmile(String text) {
+        return (text.contains(":-)") || text.contains(":-D")
+                || text.contains(";-)") || text.contains("x-D")
+                || text.contains(";-p") || text.contains(";-P")
+                || text.contains(":-p") || text.contains(":-P")
+                || text.contains("8-)") || text.contains("B-)")
+                || text.contains(":-(")) ? true : false;
+    }
+
+    /**
+     * This method reads smile in text.
+     *
+     * @param text - text message.
+     * @return smile text.
+     */
+    private String readSmile(String text) {
+        String smile = null;
+        if (text.contains(":-)")) {
+            smile = ":-)";
+        } else if (text.contains(":-D")) {
+            smile = ":-D";
+        } else if (text.contains(";-)")) {
+            smile = ";-)";
+        } else if (text.contains("x-D")) {
+            smile = "x-D";
+        } else if (text.contains(";-P")) {
+            smile = ";-P";
+        } else if (text.contains(";-p")) {
+            smile = ";-p";
+        } else if (text.contains(":-P")) {
+            smile = ":-P";
+        } else if (text.contains(":-p")) {
+            smile = ":-p";
+        } else if (text.contains("8-)")) {
+            smile = "8-)";
+        } else if (text.contains("B-)")) {
+            smile = "B-)";
+        } else if (text.contains(":-(")) {
+            smile = ":-(";
+        }
+        return smile;
+    }
+
+    /**
+     * This method returns address the smiles.
+     *
+     * @param smile - smile message.
+     * @return address smiles.
+     */
+    private String getAddressSmile(String smile) {
+        String smileAddress = null;
+        if (smile.equals(":-)")) {
+            smileAddress = "file:///c:/images/smile1.png";
+        } else if (smile.equals(":-D")) {
+            smileAddress = "file:///c:/images/smile2.png";
+        } else if (smile.equals(";-)")) {
+            smileAddress = "file:///c:/images/smile3.png";
+        } else if (smile.equals("x-D")) {
+            smileAddress = "file:///c:/images/smile4.png";
+        } else if (smile.equals(";-P")) {
+            smileAddress = "file:///c:/images/smile5.png";
+        } else if (smile.equals(";-p")) {
+            smileAddress = "file:///c:/images/smile5.png";
+        } else if (smile.equals(":-P")) {
+            smileAddress = "file:///c:/images/smile6.png";
+        } else if (smile.equals(":-p")) {
+            smileAddress = "file:///c:/images/smile6.png";
+        } else if (smile.equals("8-)")) {
+            smileAddress = "file:///c:/images/smile7.png";
+        } else if (smile.equals("B-)")) {
+            smileAddress = "file:///c:/images/smile8.png";
+        } else if (smile.equals(":-(")) {
+            smileAddress = "file:///c:/images/smile9.png";
+        }
+        return smileAddress;
     }
 
     /**
