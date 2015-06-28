@@ -1,6 +1,5 @@
 package ua.edu.sumdu.greenberg.client.model;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -171,15 +170,11 @@ public class ClientModel {
         str.append(" ");
         if (findSmile(text)) {
             while (findSmile(text)) {
-                int first = 0;
-                int second = text.indexOf(readSmile(text));
-                String addText = text.substring(first, second);
-                str.append(addText);
+                str.append(text.substring(0, text.indexOf(readSmile(text))));
                 str.append("<img src = \"");
                 str.append(getAddressSmile(readSmile(text)));
                 str.append("\" width = \"20\" height = \"20\">");
-                String newText = text.substring(second + 3);
-                text = newText;
+                text = text.substring(text.indexOf(readSmile(text)) + 3);
             }
             str.append(text);
         } else {

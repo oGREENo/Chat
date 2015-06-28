@@ -1,0 +1,3 @@
+12:22:42,848  INFO main ServerView:consoleMessage:15 - Connection user.
+12:22:42,993  INFO main ServerView:consoleMessage:15 - Connection user.
+12:27:09,551  INFO Thread-31 ServerModel:removeUser:53 - The user has left.
