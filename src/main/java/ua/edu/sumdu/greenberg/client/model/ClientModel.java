@@ -163,20 +163,25 @@ public class ClientModel {
      * @param color - color message.
      */
     private void createMessage(String text, String color) {
+        int count = 0;
         StringBuilder str = new StringBuilder("<html><font color=");
         str.append(color);
         str.append(">");
         str.append(new SimpleDateFormat("HH:mm:ss").format(new Date()));
         str.append(" ");
         if (findSmile(text)) {
-            while (findSmile(text)) {
-                str.append(text.substring(0, text.indexOf(readSmile(text))));
-                str.append("<img src = \"");
-                str.append(getAddressSmile(readSmile(text)));
-                str.append("\" width = \"20\" height = \"20\">");
-                text = text.substring(text.indexOf(readSmile(text)) + 3);
+            while ((text.length() - count) >= 3) {
+                if (findSmile(text.substring(count, count + 3))) {
+                    str.append("<img src = \"");
+                    str.append(getAddressSmile(readSmile(text.substring(count, count + 3))));
+                    str.append("\" width = \"20\" height = \"20\">");
+                    count += 3;
+                } else {
+                    str.append(text.substring(count, count + 1));
+                    count += 1;
+                }
             }
-            str.append(text);
+            str.append(text.substring(count));
         } else {
             str.append(text);
         }

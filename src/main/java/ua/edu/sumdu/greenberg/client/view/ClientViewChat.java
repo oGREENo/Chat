@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -32,7 +33,8 @@ public class ClientViewChat extends JFrame {
         panel.setLayout(new BorderLayout());
         messageList(panel);
         userList(panel);
-        JPanel sendPanel = new JPanel();
+        JPanel sendPanel = new JPanel(new BorderLayout());
+        createSmile(sendPanel);
         createMessageSend(sendPanel);
         getContentPane().add(panel);
         getContentPane().add(sendPanel, BorderLayout.SOUTH);
@@ -71,6 +73,97 @@ public class ClientViewChat extends JFrame {
         userPanel.add(uList);
         userPanel.add(scrollUser);
         panel.add(userPanel, BorderLayout.EAST);
+    }
+
+    /**
+     * This method adds elements.
+     *
+     * @param panel - JPanel.
+     */
+    private void createSmile(JPanel panel) {
+        JPanel smilePanel = new JPanel();
+        JButton smile1 = new JButton(new ImageIcon("c:/images/smile1.png"));
+        JButton smile2 = new JButton(new ImageIcon("c:/images/smile2.png"));
+        JButton smile3 = new JButton(new ImageIcon("c:/images/smile3.png"));
+        JButton smile4 = new JButton(new ImageIcon("c:/images/smile4.png"));
+        JButton smile5 = new JButton(new ImageIcon("c:/images/smile5.png"));
+        JButton smile6 = new JButton(new ImageIcon("c:/images/smile6.png"));
+        JButton smile7 = new JButton(new ImageIcon("c:/images/smile7.png"));
+        JButton smile8 = new JButton(new ImageIcon("c:/images/smile8.png"));
+        JButton smile9 = new JButton(new ImageIcon("c:/images/smile9.png"));
+        smile1.setPreferredSize(new Dimension(34, 34));
+        smile2.setPreferredSize(new Dimension(34, 34));
+        smile3.setPreferredSize(new Dimension(34, 34));
+        smile4.setPreferredSize(new Dimension(34, 34));
+        smile5.setPreferredSize(new Dimension(34, 34));
+        smile6.setPreferredSize(new Dimension(34, 34));
+        smile7.setPreferredSize(new Dimension(34, 34));
+        smile8.setPreferredSize(new Dimension(34, 34));
+        smile9.setPreferredSize(new Dimension(34, 34));
+        smile1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" :-) ");
+            }
+        });
+        smile2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" :-D ");
+            }
+        });
+        smile3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" ;-) ");
+            }
+        });
+        smile4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" x-D ");
+            }
+        });
+        smile5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" ;-P ");
+            }
+        });
+        smile6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" :-P ");
+            }
+        });
+        smile7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" 8-) ");
+            }
+        });
+        smile8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" B-) ");
+            }
+        });
+        smile9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSmileToMessage(" :-( ");
+            }
+        });
+        smilePanel.add(smile1, BorderLayout.CENTER);
+        smilePanel.add(smile2, BorderLayout.CENTER);
+        smilePanel.add(smile3, BorderLayout.CENTER);
+        smilePanel.add(smile4, BorderLayout.CENTER);
+        smilePanel.add(smile5, BorderLayout.CENTER);
+        smilePanel.add(smile6, BorderLayout.CENTER);
+        smilePanel.add(smile7, BorderLayout.CENTER);
+        smilePanel.add(smile8, BorderLayout.CENTER);
+        smilePanel.add(smile9, BorderLayout.CENTER);
+        panel.add(smilePanel, BorderLayout.NORTH);
     }
 
     /**
@@ -173,5 +266,14 @@ public class ClientViewChat extends JFrame {
      */
     public void addMessageToChat(ArrayList<String> chatList) {
         listMessage.setListData(chatList.toArray());
+    }
+
+    /**
+     * This method adds the smile in message.
+     *
+     * @param smile - smile.
+     */
+    private void addSmileToMessage(String smile) {
+        message.setText(getMessage() + smile);
     }
 }
