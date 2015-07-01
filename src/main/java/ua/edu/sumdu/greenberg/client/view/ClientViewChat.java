@@ -20,6 +20,8 @@ public class ClientViewChat extends JFrame {
     private JTextField message;
     private JButton sendButton;
     private JButton privateButton;
+    private JPanel smilePanel;
+    private boolean smileVisible;
 
     /**
      * This is the class constructor.
@@ -81,7 +83,8 @@ public class ClientViewChat extends JFrame {
      * @param panel - JPanel.
      */
     private void createSmile(JPanel panel) {
-        JPanel smilePanel = new JPanel();
+        smilePanel = new JPanel();
+        smilePanel.setVisible(smileVisible);
         JButton smile1 = new JButton(new ImageIcon("c:/images/smile1.png"));
         JButton smile2 = new JButton(new ImageIcon("c:/images/smile2.png"));
         JButton smile3 = new JButton(new ImageIcon("c:/images/smile3.png"));
@@ -182,6 +185,21 @@ public class ClientViewChat extends JFrame {
                 }
             }
         });
+        JButton smileButton = new JButton(new ImageIcon("c:/images/smile1.png"));
+        smileButton.setPreferredSize(new Dimension(20, 20));
+        smileButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (smileVisible) {
+                    smileVisible = false;
+                    smilePanel.setVisible(false);
+                } else {
+                    smileVisible = true;
+                    smilePanel.setVisible(true);
+                }
+                message.grabFocus();
+            }
+        });
         sendButton = new JButton("Send");
         privateButton = new JButton("Private");
         privateButton.setEnabled(false);
@@ -190,6 +208,7 @@ public class ClientViewChat extends JFrame {
         sendPanel.add(message, BorderLayout.CENTER);
         JPanel panelSendButton = new JPanel();
         panelSendButton.setLayout(new BoxLayout(panelSendButton, BoxLayout.X_AXIS));
+        panelSendButton.add(smileButton);
         panelSendButton.add(sendButton);
         panelSendButton.add(privateButton);
         sendPanel.add(panelSendButton, BorderLayout.EAST);
@@ -247,6 +266,7 @@ public class ClientViewChat extends JFrame {
         listMessage.clearSelection();
         userList.clearSelection();
         message.setText("");
+        message.grabFocus();
         privateButton.setEnabled(false);
     }
 
@@ -275,5 +295,6 @@ public class ClientViewChat extends JFrame {
      */
     private void addSmileToMessage(String smile) {
         message.setText(getMessage() + smile);
+        message.grabFocus();
     }
 }
